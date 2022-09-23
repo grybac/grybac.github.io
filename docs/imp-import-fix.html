@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Importing data using TT FIX | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Importing data using TT FIX</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -692,8 +691,9 @@
   
   
   
-    <a href="#reference" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Reference</a>
-    <div class="collapse nav-indiv-article" id="reference">
+
+    <a href="#reference" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Reference</a>
+    <div class="collapse in nav-indiv-article" id="reference">
   
 
   
@@ -778,11 +778,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="imp-import.html" class="list-group-item list-group-subitem">Importing data using TT FIX</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Importing data using TT FIX</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Importing data using TT FIX</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Importing data using TT FIX</h1>
 
           
       
@@ -816,26 +816,13 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<p>The TT FIX Inbound Drop Copy service allows third parties to import their data sources into the TT environment for Score processing.</p>
 
+<p>The TT FIX Inbound Drop Copy service supports a subset of the FIX protocol (Version 4.2 with Errata 20010501) message types and tags within the message types. The TT FIX Inbound Drop Copy service support only those messages and tags described in this document. Do not submit other messages or tags, as doing so can produce unexpected results.</p>
 
-the reply mode is 4
+<p>The TT FIX Inbound Drop Copy service supports persistent FIX sessions. When it is started for the first time, it will send a Logon (A) message with Tag 34 (MsgSeqNum)=1. When there are unscheduled restarts, the standard FIX message sequence number negotiation will take place.</p>
 
-the node does not have a return MPLS LSP path to the echo request source.
-
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
-
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
-
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
-
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
-
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+<p>After the TT FIX Inbound Drop Copy service creates a connection to the FIX acceptor, the FIX acceptor can start sending unsolicited Execution Report (8) messages to be processed by the TT FIX Inbound Drop Copy service.</p>
 
 
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
@@ -851,12 +838,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="inv-wash-trading.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Wash Trading</h2>
 				</div>
 			</a>
 			
@@ -864,15 +851,6 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		<div class="col-sm-2 col-md-4 col-lg-4">
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
-			
-			<a href="us-using-overview-c.html">
-				<div class="lower-nav-arrow-right">
-				</div>
-				<div class="lower-nav-text">
-					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
-				</div>
-			</a>
 			
 		</div>  
 	</div>  <!-- /.ttdoc-lower-nav row-->
@@ -925,7 +903,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/imp-import-fix.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Cluster Group View - Heat Map | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Cluster Group View - Heat Map</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -372,8 +371,9 @@
   
   
   
-    <a href="#views" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Configuration Examples</a>
-    <div class="collapse nav-indiv-article" id="views">
+
+    <a href="#views" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Configuration Examples</a>
+    <div class="collapse in nav-indiv-article" id="views">
   
 
   
@@ -418,11 +418,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="glv-group-view-heat-map.html" class="list-group-item list-group-subitem">Cluster Group View - Heat Map</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Cluster Group View - Heat Map</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Cluster Group View - Heat Map</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Cluster Group View - Heat Map</h1>
 
           
       
@@ -816,26 +816,224 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<!-- target article structure:
+<ul>
+	<li>What this report tells you and how.</li>
+	<li>Report Interface - section by section breakdown</li>
+	<li>Example with interpretation</li>
+	<li>Table of definitions: Reference</li>
+</ul>
+
+-->
+<p>The Heat Map shows you which traders or accounts are generating activity that has a high degree of similarity to regulatory cases. Each rectangle represents a group of clusters using color to indicate the level of risk, and size to indicate the number of clusters. These visual cues help you prioritize your cluster group review 
+	based on activity that generates the most risk.</p>
+
+<h2>Heat Map display</h2>
+
+<img class="img-responsive" src="Content/new-rpt-heatmap-display.png" />
 
 
-the reply mode is 4
+<p>The Heat Map display is organized into the following sections:</p>
+	<ol>
+		<li><a href="#heat-map">Heat Map</a>: Displays the Heat Map view of the selected data as well as filtering and navigation tools.</li>
+	<!--	<li><a href="#statistical-summary">Summary Statistics Panel</a>: Shows metrics about the selected data in the current view.
+		</li> -->
+		<li><a href="#data-selection-panel">Data Selection Panel</a>: Manages the dates available to TT Score and specifies the criteria to use when populating the list.</li>
+	</ol>
 
-the node does not have a return MPLS LSP path to the echo request source.
+	<h2 id="heat-map">Interpreting the Heat Map</h2>
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
+		<p>The Heat Map groups clusters by trader, instrument, or account, and displays these groups as a collection of blocks. TT Score calculates a risk score for each block based on the clusters in the group represented by that block.</p>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
+		 <img class="img-responsive" src="Content/new-rpt-heatmap-explorer.png" /> 
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
+			<ul>
+			  <li>The color of a block indicates the severity of the score. Low scores are represented as light green and high scores are represented as red.</li>
+			  <li>The size of a block indicates the number of clusters.</li>
+			  <br>
+			  <img class="img-responsive" src="Content/new-rpt-heatmap-block-metrics.png" />
+			  
+			  <li>Metrics for the clusters in each groups are displayed within the block:</li>
+			  	<ul>
+			  		<li><strong>Trader, Account, or Instrument ID</strong>: Shows the ID based on the "Group By" setting
+			  		<li><strong>Max</strong>: Highest cluster score</li>
+			  		<li><strong>Avg</strong>: Average score of clusters within the group</li>
+			  		<li><strong>Clusters</strong>: Total number of clusters within the group</li>
+			  	</ul>
+			</ul>
 
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
+		<h3>Heat Map navigation and filters</h3>
+		<p><img class="img-responsive" src="Content/heatmap-navigation.png" alt=""/></p>
+<ol>
+	<li>
+		Select View: Switch between Individual Clusters, Heat Map, Outlier Chart, and Daily Cluster Groups views.
+	</li>
+	<li>
+		Group By: Sort the view by trader, account, and instrument.
+	</li>
+	<li>
+		Cluster Filters: Filter the view by trader, account, and instrument.
+	</li>
+	<li>
+		Export: Exports filtered data into a <strong>.csv </strong>spreadsheet file.
+	</li>
+</ol>
 
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+
+
+		<!--	<table class="table table-striped table-bordered" border="1">
+				<tbody>
+					<tr>
+						<th>Filter</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>Score</td>
+						<td>Set minimum and maximum score thresholds to filter which blocks to display.</td>
+					</tr>
+					<tr>
+						<td>Cortex</td>
+						<td>Select which models to include in the results.</td>
+					</tr>
+					<tr>
+						<td>Instrument</td>
+						<td>Filter for one or more instruments.</td>
+					</tr>
+					<tr>
+						<td>ProdType</td>
+						<td>Filter to for Futures, Strategies and Options on Futures.</td>
+					</tr>
+					<tr>
+						<td>Trader</td>
+						<td>Select traders to include in the results.</td>
+					</tr>
+					<tr>
+						<td>Account</td>
+						<td>Select accounts to include in the results.</td>
+					</tr>
+					<tr>
+						<td>More</td>
+						<td>Filter the results by whether or not a reviewed column contains a value.</td>
+					</tr>
+				</tbody>
+			</table> -->
+
+<!-- <h3 id="statistical-summary">Summary Statistics</h3>
+	<p>On the right side of the display is the <strong>Summary Statistics</strong> pane, which contains the following:</p>
+	<img class="img-responsive" src="Content/rpt-heatmap-summary-statistics.png" />
+
+	<ol>
+		<li>A bar chart summarizing the number of clusters for each category of problematic trading activity. </li>
+		<li>Scores for the current data selection. (See table below for parameter descriptions)</li>
+		<li>A pie chart illustrating the number of clusters for each group. The type of group is defined by the "Group by" drop down menu. (by Trader in this example)</li>
+		<li>A table showing the number of clusters for each group .</li>
+	</ol>
+
+<p>Scores are described in the following table.</p>
+<table class="table table-striped table-bordered" border="1">
+	<tbody>
+		<tr>
+			<th>Field</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>Min Risk</td>
+			<td>The minimum individual cluster risk score.</td>
+		</tr>
+		<tr>
+			<td>Mean Risk</td>
+			<td>The average risk score of all clusters contained in the current data selection.</td>
+		</tr>
+		<tr>
+			<td>Median Risk</td>
+			<td>The median individual cluster risk score.</td>
+		</tr>
+		<tr>
+			<td>Max Risk</td>
+			<td>The highest individual risk score seen the the currently viewed data.</td>
+		</tr>
+		<tr>
+			<td>#_clusters</td>
+			<td>Total number of clusters.</td>
+		</tr>
+	</tbody>
+</table>
+-->
+
+<h2 id="data-selection-panel">Data Selection Panel</h2>
+
+
+	<p>On the left of the screen, the <a href="us-selecting-data.html">Data Selection Panel</a> shows the daily activity logs that have been selected using the date picker and are available for data visualization. It also includes filters to apply to the 
+		data view.</p>
+
+	<img class="img-responsive" src="Content/new-us-import-panel.png" />
+
+	<p>The panel includes the following:</p>
+	
+<ol>
+	<li><strong>Score Range</strong>: Sets the maximum score of the clusters to include in each view.</li> 
+	<li><strong>Date Range</strong>: Date-based selector to add daily activity data to analyze.</li>
+	<li><strong>MODELS</strong>: Sets which types of suspect trading patterns to analyze in the data. Check this checkbox to apply all problematic trading models.
+		
+
+
+<p></p>
+TT Score uses the following models to analyze data for problematic trading patterns:
+
+<ul>
+	
+	
+
+	<li><a href="inv-abusive-messaging.html">Abusive Messaging</a>: Quote stuffing schemes designed to introduce predictable latency into an exchange's quoting engine or malfunctioning algorithms that might cause market disruptions.</li>
+
+<li><a href="inv-automated-collusive-spoofing.html">Automated Collusive Spoofing</a>: Patterns of manipulative or disruptive trading activity by multiple traders working together to automatically submit a number of orders for which they have no intention of executing in an attempt to move the market.</li>
+
+<li><a href="inv-automated-spoofing.html">Automated Spoofing</a>: Patterns of manipulative or disruptive trading activity that involve the automated placement of a number of orders for which a trader has no intention of executing in an attempt to move the market.</li>
+
+
+	<li><a href="inv-collusive-spoofing.html">Collusive Spoofing</a>: Patterns of manipulative or disruptive trading activity by multiple traders working together to place a number of orders for which they have no intention of executing in an attempt to move the market.</li>
+
+	<li><a href="inv-cross-trading.html">Cross Trading</a>: A cross trade occurs when a buy order and a sell order for the same instrument are entered for different accounts under the same management, such as a broker or portfolio manager.</li>
+
+	<li><a href="inv-exchange-messaging-rate-limits.html">Exchange Messaging Rate Limits</a>: Instances where traders exceeded the exchange message rate limit for a set period of time during a trading session.</li>
+
+	<li><a href="inv-marking-the-close.html">Marking the Close</a>: Trading activity intended to manipulate the settlement price of an instrument during its settlement period.</li>
+
+		<li><a href="inv-momentum-ignition.html">Momentum Ignition</a>: Behaviors that indicate an attempt to create an artificial price movement with aggressive orders followed by an attempt to capitalize on such movement.</li>
+
+			<li><a href="inv-pinging.html">Pinging</a>: The entry of multiple small orders intended to discover hidden book depth followed by a series of order actions designed to force the large order to trade at less desirable prices.</li>
+	
+	<li><a href="inv-spoofing.html">Spoofing</a>: Patterns of manipulative or disruptive trading activity that involve the placement of a number of orders for which a trader has no intention of executing in an attempt to move the market.</li>
+
+		
+
+	<li><a href="inv-wash-trading.html">Wash Account</a>: The same account ID is both the buyer and seller in the same transaction.</li>
+	<li><a href="inv-wash-trading.html">Wash Trader</a>: The same trader ID is both the buyer and seller in the same transaction.</li>
+
+
+
+
+
+
+
+</ul>
+
+<!-- also included in https://library.tradingtechnologies.com/tt-score/us-selecting-data.html -->
+
+	</li>
+	<li><strong>Products</strong>: Sets one or more of the following product types to include in each view:
+		<ul>
+			<li>Futures
+				<li>Spreads-Strategies
+					<li>Equity-Index Options
+					</ul>
+
+
+
+	</li>
+	<li><b>Keep Dropdown Filters Selected</b>: Maintains your selected trader, account, instrument, and exchange filters when changing the selected date(s), models, or product types.</li>
+	<li><strong>Apply Filters</strong>: Applies the selected dates and filters.</li>
+</ol>
 
 
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
@@ -851,12 +1049,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="glv-group-view-outlier-chart.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Cluster Group View - Outlier Chart</h2>
 				</div>
 			</a>
 			
@@ -865,12 +1063,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="glv-daily-cluster-group.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Cluster Group View - Daily Cluster Groups</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +1123,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/glv-group-view-heat-map.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

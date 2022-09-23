@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Component&colon; Instrument block | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Component&colon; Instrument block</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -803,10 +802,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Component&colon; Instrument block</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Component&colon; Instrument block</h1>
 
           
       
@@ -816,28 +815,376 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<h2>Overview</h2>
+<p>When sending the instrument component block in a FIX execution report, you can specify the instrument in any of the following methods:</p>
+<ul>
+	<li>
+		<a href="#by-id">By security ID</a>
+	</li>
+	<li>
+		<a href="#by-name">By security name</a>
+	</li>
+</ul>
 
+<p>These methods can be used as follows:</p>
+<ul>
+	<li>
+		You can use the security ID method for all cases.
+	</li>
+	<li>
+		You can use the security name method for all contracts on all exchanges except for ICE contracts that use daily, weekly, variable, and undefined delivery terms.
+	</li>
+</ul>
 
-the reply mode is 4
+<h2 id="by-id">When specifying by security ID</h2>
+<table class="table table-striped table-bordered" border="1">
+	<thead>
+		<tr>
+			<th>Tag #</th>
+			<th>Field Name</th>
+			<th>Req&#8217;d</th>
+			<th>Data type</th>
+			<th>Comments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="text-right" id="tag48">48</td>
+			<td>SecurityID</td>
+			<td class="text-center">Y</td>
+			<td>String</td>
+			<td>
+				<p>ID of the instrument</p>
+				<p><strong>Note</strong>: The combination of this tag and tag 22 (IDSource) must uniquely identify an instrument in the TT platform.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag22">22</td>
+			<td>IDSource</td>
+			<td class="text-center">Y</td>
+			<td>String</td>
+			<td>
+				<p>Source for the value of tag 48 (SecurityID).</p>
+				<p>Possible values include:</p>
+				<ul>
+					<li><strong>5</strong>: RIC code</li>
+					<li><strong>8</strong>: Exchange symbol</li>
+					<li><strong>96</strong>: TT security ID</li>
+					<li><strong>97</strong>: Alias</li>
+					<li><strong>98</strong>: Name</li>
+					<li><strong>X</strong>: Series key</li>
+				</ul>
+				<p><strong>Note</strong>: The following markets support RIC codes (22=5) for identifying futures, spreads and options instruments in tag 48 (SecurityID):</p>
+				<ul>
+  <li>ASX</li>
+  <li>DGCX</li>
+  <li>CFE</li>
+  <li>CME</li>
+  <li>EEX</li>
+  <li>EUREX</li>
+  <li>Euronext</li>
+  <li>Hkex</li>
+  <li>ICE</li>
+  <LI>ICE_L</LI>
+  <li>LME</li>
+  <LI>MEFF</LI>
+  <li>MX</li>
+  <li>OSE</li>
+  <li>SGX</li>
+  <li>TFX</li>
+  <li>TOCOM</li>
+</ul>
+				<p><strong>Note</strong>: The combination of this tag and tag 48 (SecurityID) must uniquely identify an instrument in the TT platform.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag207">207</td>
+			<td>SecurityExchange</td>
+			<td class="text-center">C</td>
+			<td>Exchange</td>
+			<td>
+				<p>Name of the market where the instrument trades.</p>
+				<p>TT FIX uses this value to identify the exchange that offers the security.</p>
+				<p>Possible values include:</p>
 
-the node does not have a return MPLS LSP path to the echo request source.
+<ul>
+<li>AGGREGATOR</li>
+<li>ALGO</li>
+<li>ASE</li>
+<li>SX</li>
+<li>B3</li>
+<li>BitMEX</li>
+<li>BrokerTec</li>
+<li>CBOT</li>
+<li>CFE</li>
+<li>CME</li>
+<li>Coinbase</li>
+<li>CoinFLEX</li>
+<li>CurveGlobal</li>
+<li>CZCE</li>
+<li>DCE</li>
+<li>DGCX</li>
+<li>EEX</li>
+<li>Eurex</li>
+<li>Euronext</li>
+<li>Fenics</li>
+<li>FEX</li>
+<li>HKEX</li>
+<li>ICE</li>
+<li>ICE_L</li>
+<li>IDEM</li>
+<li>INE</li>
+<li>KCG</li>
+<li>LME</li>
+<li>LSE</li>
+<li>MEFF</li>
+<li>MOEX</li>
+<li>MX</li>
+<li>MX</li>
+<li>NDAQ_EU</li>
+<li>NFI</li>
+<li>NFX</li>
+<li>OSE</li>
+<li>SGX</li>
+<li>TFX</li>
+<li>TOCOM</li>
+</ul>
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
+				<p>Condition: Required when Tag 100 (ExtDestination) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
+			</td>
+		</tr>
+		<tr>
+			<td><em>OR</em></td>
+			<td colspan="5"></td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag100">100</td>
+			<td>ExDestination</td>
+			<td class="text-center">C</td>
+			<td>Exchange</td>
+			<td>
+				<p>Market Identifier Code (MIC) of the sub-market where the instrument trades.</p>
+				<p>Execution destination for the order as defined by the institution</p>
+				<p>Some traders use this tag in place of Tag 207 (SecurityExchange) to identify the exchange.</p>
+				<p>ISO 10383 defines a comprehensive list of <a href="http://www.iso15022.org/MIC/homepageMIC.htm">MIC codes</a>.</p>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
+				<p>Condition: Required when Tag 207 (SecurityExchange) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag55">55</td>
+			<td>Symbol</td>
+			<td class="text-center">Y</td>
+			<td>String</td>
+			<td>
+				<p>Exchange-provided product symbol for the tradable product.</p>
+				<p>When specifying instruments for <a href="Msg_NewOrderMultileg_AB.html">NewOrderMultileg (AB)</a> and <a href="Msg_MultilegOrderCancelReplace_AC.html">MultilegOrderCancelReplace (AC)</a>:</p>
+				<ul>
+					<li>
+						When submitting multi-leg instrument, set tag 55 to "[NA]".
+					</li>
+					<li>
+						When tag 54 (Side) is B or C, the value in tag 55 is ignored; the values in tag 600 (LegSymbol) and tag 624 (LegSide) in the <a href="Group_LegInstrumentGrp.html">LegInstrument</a> group are used instead.
+					</li>
+				</ul>
+			</td>
+		</tr>
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
+	</tbody>
+</table>
 
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
+<h2 id="by-name">When specifying by security name</h2>
+<p>You can also identify instruments by specifying its name and characteristics. You might use this method if your application or business practices do not use security IDs.</p>
 
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+<table class="table table-striped table-bordered" border="1">
+	<thead>
+		<tr>
+			<th>Tag #</th>
+			<th>Field Name</th>
+			<th>Req&#8217;d</th>
+			<th>Data type</th>
+			<th>Comments</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="text-right" id="tag207">207</td>
+			<td>SecurityExchange</td>
+			<td class="text-center">C</td>
+			<td>Exchange</td>
+			<td>
+				<p>Name of the market where the instrument trades.</p>
+				<p>TT FIX uses this value to identify the exchange that offers the security.</p>
+				<p>Possible values include:</p>
 
+<ul>
+<li>AGGREGATOR</li>
+<li>ALGO</li>
+<li>ASE</li>
+<li>SX</li>
+<li>B3</li>
+<li>BitMEX</li>
+<li>BrokerTec</li>
+<li>CBOT</li>
+<li>CFE</li>
+<li>CME</li>
+<li>Coinbase</li>
+<li>CoinFLEX</li>
+<li>CurveGlobal</li>
+<li>CZCE</li>
+<li>DCE</li>
+<li>DGCX</li>
+<li>EEX</li>
+<li>Eurex</li>
+<li>Euronext</li>
+<li>Fenics</li>
+<li>FEX</li>
+<li>HKEX</li>
+<li>ICE</li>
+<li>ICE_L</li>
+<li>IDEM</li>
+<li>INE</li>
+<li>KCG</li>
+<li>LME</li>
+<li>LSE</li>
+<li>MEFF</li>
+<li>MOEX</li>
+<li>MX</li>
+<li>MX</li>
+<li>NDAQ_EU</li>
+<li>NFI</li>
+<li>NFX</li>
+<li>OSE</li>
+<li>SGX</li>
+<li>TFX</li>
+<li>TOCOM</li>
+</ul>
 
+				<p>Condition: Required when Tag 100 (ExtDestination) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
+			</td>
+		</tr>
+		<tr>
+			<td><em>OR</em></td>
+			<td colspan="5"></td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag100">100</td>
+			<td>ExDestination</td>
+			<td class="text-center">C</td>
+			<td>Exchange</td>
+			<td>
+				<p>Market Identifier Code (MIC) of the sub-market where the instrument trades.</p>
+				<p>Execution destination for the order as defined by the institution</p>
+				<p>Some traders use this tag in place of Tag 207 (SecurityExchange) to identify the exchange.</p>
+				<p>ISO 10383 defines a comprehensive list of <a href="http://www.iso15022.org/MIC/homepageMIC.htm">MIC codes</a>.</p>
+
+				<p>Condition: Required when Tag 207 (SecurityExchange) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag55">55</td>
+			<td>Symbol</td>
+			<td class="text-center">Y</td>
+			<td>String</td>
+			<td>
+				<p>Exchange-provided product symbol for the tradable product.</p>
+				<p>When specifying instruments for <a href="Msg_NewOrderMultileg_AB.html">NewOrderMultileg (AB)</a> and <a href="Msg_MultilegOrderCancelReplace_AC.html">MultilegOrderCancelReplace (AC)</a>:</p>
+				<ul>
+					<li>
+						When submitting multi-leg instrument, set tag 55 to "[NA]".
+					</li>
+					<li>
+						When tag 54 (Side) is B or C, the value in tag 55 is ignored; the values in tag 600 (LegSymbol) and tag 624 (LegSide) in the <a href="Group_LegInstrumentGrp.html">LegInstrument</a> group are used instead.
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag167">167</td>
+			<td>SecurityType</td>
+			<td class="text-center">Y</td>
+			<td>String</td>
+			<td>
+				<p>Asset class of the instrument.</p>
+				<p>Possible values include:</p>
+<ul>
+  <li><strong>FUT</strong>: future</li>
+  <li><strong>MLEG</strong>: multi-leg</li>
+  <li><strong>OPT</strong>: option</li>
+  <li><strong>SPOT</strong>: EEX spot products</li>
+  <li><strong>CUR</strong>: currency</li>
+  <li><strong>TBOND</strong>: treasury bond</li>
+  <li><strong>CS</strong>: common stock</li>
+  <li><strong>NONE</strong>: No security type (Not valid for 35=c, e or V)</li>
+  <!--
+  <li><strong>STRA</strong>: strategy</li>
+  <li><strong>GOVT</strong>: sovereign debt</li>
+  <li><strong>NRG</strong>: energy</li>
+  -->
+</ul>
+
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag55">55</td>
+			<td>Symbol</td>
+			<td class="text-center">Y</td>
+			<td>String</td>
+			<td>
+				<p>Exchange-provided product symbol for the tradable product.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag200">200</td>
+			<td>MaturityMonthYear</td>
+			<td class="text-center">Y</td>
+			<td>MonthYear</td>
+			<td>
+				<p>Month and year the instrument reaches maturity in the format <i>YYYYMM</i>.</p>
+				<p><strong>Note</strong>: If included, tag 541 (MaturityDate) will override this tag.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag205">205</td>
+			<td>MaturityDay</td>
+			<td class="text-center">C</td>
+			<td>DayOfMonth</td>
+			<td>
+				<p>Day of expiration for the instrument.</p>
+				<p>TT FIX uses this value and Tag 200 (MaturityMonthYear) to specify the maturity date when Tag 167 (SecurityType) is not <strong>MLEG</strong>.</p>
+				<p>Range: 1-31</p>
+				<p><strong>Note</strong>: If included, tag 541 (MaturityDate) will override this tag.</p>
+				<p>Condition: Required when multiple contracts exist for the same month</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag201">201</td>
+			<td>PutOrCall</td>
+			<td class="text-center">C</td>
+			<td>int</td>
+			<td>
+				<p>Whether the option represents a put or call</p>
+				<p>Possible values include:</p>
+				<ul>
+					<li><strong>0</strong>: Put</li>
+					<li><strong>1</strong>: Call</li>
+				</ul>
+				<p>Condition: Required when Tag 167 (SecurityType) is <strong>OPT</strong></p>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right" id="tag202">202</td>
+			<td>StrikePrice</td>
+			<td class="text-center">C</td>
+			<td>Price</td>
+			<td>
+				<p>Strike price for an option</p>
+				<p>Condition: Required when Tag 167 (SecurityType) is <strong>OPT</strong></p>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
   </div> <!-- /.row -->
 </div> <!-- /.container-fluid -->
@@ -851,12 +1198,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href=".html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2></h2>
 				</div>
 			</a>
 			
@@ -864,15 +1211,6 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		<div class="col-sm-2 col-md-4 col-lg-4">
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
-			
-			<a href="us-using-overview-c.html">
-				<div class="lower-nav-arrow-right">
-				</div>
-				<div class="lower-nav-text">
-					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
-				</div>
-			</a>
 			
 		</div>  
 	</div>  <!-- /.ttdoc-lower-nav row-->
@@ -925,7 +1263,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/imp-instrument-block.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

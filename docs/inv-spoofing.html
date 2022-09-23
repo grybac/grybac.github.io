@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Spoofing | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Spoofing</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -512,8 +511,9 @@
   
   
   
-    <a href="#problematic-trading-models" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Use Cases</a>
-    <div class="collapse nav-indiv-article" id="problematic-trading-models">
+
+    <a href="#problematic-trading-models" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Use Cases</a>
+    <div class="collapse in nav-indiv-article" id="problematic-trading-models">
   
 
   
@@ -631,11 +631,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="inv-spoofing.html" class="list-group-item list-group-subitem">Spoofing</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Spoofing</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Spoofing</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Spoofing</h1>
 
           
       
@@ -816,27 +816,121 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<p>Spoofing represents an attempt to deceive the market into thinking that an instrument has more interest, liquidity or depth by placing large orders on one side for the purpose of causing traders to execute smaller orders on the opposite side. Once the intended orders are filled, the larger orders are deleted. </p>
+
+<p>The Spoofing Model in TT Score analyzes and scores clusters that contain only manual trading or a mix of both automated and manual trading. Trading events that originate only from automated sources are scored separately by the Automated Spoofing Model.</p>
+
+<h2>Spoofing patterns</h2>
+<p>TT Score detects a variety of spoofing patterns, including:</p>
+<ul>
+  <li>
+  	Simple spoofing: A trader places a small order on one side (intent side) of the market that the trader wants to execute, followed by a much larger order on the other side (spoof side) of the market to mislead another trader into executing against the smaller order.
+  </li>
+  <li>
+  	Spoofing with layering: A trader places a small order on the intent side of the market and orders at multiple price levels on the spoof side of the market. These spoof-side orders are designed to create a false impression of liquidity so that other participants execute against the smaller intent-side order. Once filled, all spoof-side orders are canceled or modified to avoid execution.
+  </li>
+  <li>
+  	Spoofing with vacuuming: A trader places a small order on one side of the market and a larger order on the same side of the market. The larger spoof order is then canceled to entice market movement toward the smaller order.
+  </li>
+  <li>
+  	Collapsing of layers: A trader tries to create a false appearance of large volume by circumventing pre-trade individual order size limits. The trader places a small order on the intent side and several small orders at a variety of price levels on the spoof side. The small individual spoof-side orders are then modified to the same price level to imply more volume at that price level.
+  </li>
+  <li>
+  	Flipping: A trader places orders on one side of the market with the intent ot switch, or flip, to the other side of the market. In this pattern, a trader places a large spoof-side order at or near one side of the inside market to create a false impression of market depth, hoping to induce others to place orders on the same side at the same price point. Then the trader simultaneous cancels the spoof-side orders and flips the order from buy to sell (or vice versa) to execute against the other participants.
+  </li>
+  <li>
+  	Spread squeezing: This spoofing pattern is unique to instruments with spreads that are multi-tick wide. A trader places order on the spoof-side at successively higher or lower prices with the spread to squeeze it one direction, enticing other market participants to joi or beat the newly established top of book. The trader then switches sides and executes against those participants. After execution, the trader cancels the spoof-side orders, and the market returns to its previous state. The trader then uses the same squeeze technique on the opposite side of the trade to trade out of the established position at an advantageous price.
+  </li>
+</ul>
+
+<h2>Scoring methodology</h2>
 
 
-the reply mode is 4
+  <p>TT Score computes a <a href="ovw-how-tt-score-works.html#cluster">cluster</a> score based on how similar the activity in the cluster matches trading activity that has drawn regulatory attention in other situations. </p>
+<p>Higher scores indicate the trading activity within a cluster is more likely to risk regulatory concern. A company's risk monitors can use these scores to prioritize resources for investing which users' trading activity poses the most regulatory risk.</p>
 
-the node does not have a return MPLS LSP path to the echo request source.
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
+<h3>Score interpretation</h3>
+<p>For the spoofing pattern, each cluster is assigned a risk score on a sliding scale between 0-100. This score represents the probability that spoofing occurred during the duration of the cluster's trading activity.</p>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
+<p>Based on TT Score best practices, clusters that score over 75 are deemed to be “high risk” and should be the primary focus of users during their compliance reviews.</p>
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
 
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
 
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+<h3>Scorecard metrics</h3>
+<p>The Scorecard Metrics section measures the following statistics related to abusive messaging:</p>
+<ul>
+            <li>Disclosed Buy Volume</li>
+            <li>Disclosed Sell Volume</li>
+            <li>Filled Buy Volume</li>
+            <li>Filled Sell Volume</li>
+            <li>Ord Cancel/Placed</li>
+            <li>Ord Modify/Placed</li>
+            <li>Volume Cancel/Placed</li>
+            <li>Volume Modify/Placed</li>
 
+</ul>
+
+
+<!--
+<p>Scoring methodology - Each cluster is assigned a risk score.  The risk score is on a sliding scale of 0-100 and describes the probability that spoofing occurred within cluster of trading activity. TT Score computes this probability based upon the similarity that the Features in the clustered activity have to the Features in trading activity that has drawn regulatory attention in the past. </p>
+
+<p>Score interpretation - The score is indicating the probability that the trading activity will attract regulatory attention, thereby creating a workflow prioritization for users where they can focus their resources on investigating the highest scoring or “riskiest” activity first.</p>
+-->
+
+<h2>Identifying spoofing</h2>
+<p>Use the <a href="cv-cluster-view-cluster-scorecard.html">Cluster Scorecard</a> to get a closer look at the activity that triggered the spoofing score. The chart at the bottom of the scorecard can give you visual clues about the spoofing pattern. For example, the chart in the following scorecard for a cluster with a high spoofing score shows a potential flipping pattern.</p>
+
+ <!-- <p><img class="img-responsive" src="Content/spoofing-pressure-chart.png" alt="" /></p> -->
+  <p><img class="img-responsive" src="Content/spoofing-pressure-chart-no-indicator.png" alt="" /></p>
+
+  <p>In this example:</p>
+  <ol>
+    <li>
+      Trader is adding volume on the buy side to create the appearance of buy-side pressure.
+    </li>
+    <li>
+      Trader adds a small Sell order, which immediately fills. 
+
+      <p><b>Note</b>: The green diamond above the fill is an "imbalanced fill indicator" that marks where a trader receives a fill on the opposite side of the majority of their working volume.</p>
+    </li>
+    <li>
+      Trader then cancels all outstanding Buy orders.
+    </li>
+  </ol>
+
+<p>The chart shows activity based on order volume over time, but does not show the order prices and liquidity. Looking at the prices for the potential spoofing orders can help you determine whether the trader was placing those orders far off the market in an attempt to deceive traders. From the Cluster Scorecard, you can click <a href="cv-cluster-view-cluster-scorecard.html#replay">Market Replay</a> to show how the orders interacted with the market at the various price levels.</p>
+
+<p>In this example, you can see when the trader begins submitting numerous Buy orders to create the illusion of buy-side pressure. As you continue replaying the market activity, you can observe the state of the market and the trader's activity at every point in time.</p>
+
+  <p><img class="img-responsive" src="Content/spoofing-ladder-replay.png" alt="" /></p>
+  <ol>
+    <li>
+      The price ladder shows the prices and liquidity in the market during the potential spoofing activity.
+    </li>
+    <li>
+      The vertical line identifies the point of time during the market replay.
+    </li>
+    <li>
+      Orders and fills that occurred around the specified time during the market replay.
+    </li>
+  </ol>
+
+
+ <h2 id="id">Spoofing Indicators</h2>
+
+
+  <p>The chart on the Cluster Scorecard may also show "imbalanced fill" and "market flip" indicators to help easily identify when the potential spoofing occurred.</p>
+
+<p>The <b>imbalanced fill indicator</b> is a green diamond above a fill that indicates where the trader had an imbalance between the bid and offer and was filled on orders on the small side of the imbalance.</p>
+
+
+  <p><img class="img-responsive" src="Content/spoofing-indicator-imbalance-fill.png" alt="" /></p>
+
+
+<p>The <b>market flip indicator</b> shows where a trader quickly flipped from offering to bidding (or vice versa) at the same price. The triangle indicator is either red (flipped short) or blue (flipped long).</p>
+
+  <p><img class="img-responsive" src="Content/spoofing-indicator-market-flip.png" alt="" /></p>
 
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
   </div> <!-- /.row -->
@@ -851,12 +945,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="inv-pinging.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Pinging</h2>
 				</div>
 			</a>
 			
@@ -865,12 +959,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="inv-automated-spoofing.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Automated Spoofing</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +1019,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/inv-spoofing.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

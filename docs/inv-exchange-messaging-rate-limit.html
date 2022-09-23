@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Exchange Messaging Rate Limit | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Exchange Messaging Rate Limit</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -512,8 +511,9 @@
   
   
   
-    <a href="#problematic-trading-models" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Use Cases</a>
-    <div class="collapse nav-indiv-article" id="problematic-trading-models">
+
+    <a href="#problematic-trading-models" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Use Cases</a>
+    <div class="collapse in nav-indiv-article" id="problematic-trading-models">
   
 
   
@@ -587,11 +587,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="inv-exchange-messaging-rate-limit.html" class="list-group-item list-group-subitem">Exchange Messaging Rate Limit</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Exchange Messaging Rate Limit</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Exchange Messaging Rate Limit</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Exchange Messaging Rate Limit</h1>
 
           
       
@@ -816,26 +816,74 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<p>The Exchange Messaging Rate Limit model flags instances where a trader exceeds, or nearly exceeds, the <a href="https://www.cmegroup.com/confluence/display/EPICSANDBOX/Messaging+Controls">exchange's messaging rate limits</a>. By reviewing instances of excessive messaging rates in a TT Score cluster, compliance officers can identify potentially suspect trading activity on a per trader basis.
+</p>
+
+ <p><b>Note</b>: This model currently only covers exchanges supported on CME Globex.</p>
+
+<!--
+<p><img class="img-responsive" src="Content/exchange-messaging-rate-cluster-list.png" /></p> -->
 
 
-the reply mode is 4
+<h2>Scoring methodology</h2>
 
-the node does not have a return MPLS LSP path to the echo request source.
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
+<p>TT Score identifies where traders have exceeded the exchange-defined maximum messaging rate limit for at least a three second period throughout the trading day. If one or more three-second "bursts" are identified or if the messaging rate of the burst far exceeds the exchange maximum rate in a cluster, a higher score will be assigned to that Exchange Messaging Rate Limit cluster.
+</p>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
 
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
+<h3>Score interpretation</h3>
+<p>The score assigned to a cluster is based on a sliding scale between 0-100 using a weighted calculation. A score of 75 and above is a good indication that the suspect trading activity occurred.</p>
 
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+<p>Based on TT Score best practices, clusters that score over 75 are deemed to be “high risk” and should be the primary focus of users during their compliance reviews.</p>
+
+
+
+
+<h3 id="metrics">Scorecard metrics</h3>
+
+<p>The Exchange Messaging Rate Limits cluster scorecard includes metrics that help you identify where excessive messaging rates occurred on a per trader basis.</p>
+
+  <p><img class="img-responsive" src="Content/exchange-messaging-rate-metrics.png"></p>
+
+<p>Included metrics are:</p>
+
+<ul>
+<li><b>Burst number</b> &mdash; The three-second interval of data selected in the cluster scorecard chart.
+<li><b>Count</b>: The message rate per second during the interval.
+<li><b>StartTime</b>: Start time of the three-second burst interval.
+<li><b>StopTime</b>: End time of the three-second burst interval.
+<li><b>Type</b> &mdash; The type of high-level trading activity: "Cancels" or "Non-Cancels".
+</ul>
+
+
+
+
+
+<h2 id="id">Identifying excessive messaging rates</h2>
+
+<p>In addition to the scorecard metrics, the Exchange Messaging Rate Limits chart and Audit Trail can help identify intervals of excessive messaging rates.</p>
+
+<p><img class="img-responsive" src="Content/exchange-messaging-rate-example3.png" /></p>
+
+
+<p>To inspect an Exchange Messaging Rate Limits cluster in TT Score:</p>
+
+<ol>
+<li><p>Click on a burst displayed in the chart.</p>
+<p>The chart will only highlight instances when the messaging rate exceeded the exchange maximum rate limit for a period of three seconds.</p>
+<li><p>Review the burst metrics highlighted in the metrics scorecard.</p>
+<p>In this example, the second messaging rate burst is selected (Burst 2). The messaging rate per second for the interval is shown by the <b>Count</b> metric. The <b>Type</b> metric shows that the excessive messages were "non-cancel" order actions.</p>
+</li>
+
+<li><p>To further inspect the trading activity during the selected burst interval, click an order row in the Audit Trail.
+</p>
+<p>Only the order activity for the selected burst is displayed. In this example, the price was continuously requoted for the duration of the three-second interval.</p>
+</li>
+</ol>
+
+
 
 
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
@@ -851,12 +899,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="inv-cross-trading.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Cross Trading</h2>
 				</div>
 			</a>
 			
@@ -865,12 +913,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="inv-marking-the-close.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Marking the Close</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +973,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/inv-exchange-messaging-rate-limit.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

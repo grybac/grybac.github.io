@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Analyzing trading activity using data visualizations | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Analyzing trading activity using data visualizations</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -232,8 +231,9 @@
   
   
   
-    <a href="#using-tt-score" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Using MPLS</a>
-    <div class="collapse nav-indiv-article" id="using-tt-score">
+
+    <a href="#using-tt-score" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Using MPLS</a>
+    <div class="collapse in nav-indiv-article" id="using-tt-score">
   
 
   
@@ -271,11 +271,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="us-analyzing-data.html" class="list-group-item list-group-subitem">Analyzing trading activity using data visualizations</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Analyzing trading activity using data visualizations</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Analyzing trading activity using data visualizations</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Analyzing trading activity using data visualizations</h1>
 
           
       
@@ -816,28 +816,87 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<p>TT Score provides you the ability to identify potentially problematic trading activity, review that activity from a variety of perspectives and then record your review of that activity.</p>
+
+<p>Once you have selected your data, TT Score organizes this data into clusters. You then choose a grouping method for organizing these clusters into groups or select a view that groups your clusters automatically. With your clusters now grouped, you can use TT Score data visualizations to review the selected data at three different layers of depth:</p>
+
+<ul>
+	<li>Groups of clusters</li>
+	<li>List of clusters in a cluster group</li>
+	<li>Individual cluster</li>
+</ul>
 
 
-the reply mode is 4
+<h2>Cluster Group review</h2>
 
-the node does not have a return MPLS LSP path to the echo request source.
+<p>Using the cluster group views listed below, you examine each group of clusters to determine which of them require further review. Cluster Group reviews are conducted using the following views:</p>
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
-
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
-
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
-
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
-
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+<ul>
+	<li><a href="glv-group-view-outlier-chart.html">Outlier chart</a></li>
+	<li><a href="glv-group-view-heat-map.html">Heat Map</a></li>
+	<li><a href="glv-daily-cluster-group.html">Daily Cluster Groups</a></li>
+</ul>
 
 
+<h2>Cluster List review</h2>
+
+<p>After you have identified a problematic cluster group, you review the list of individual clusters within that group to determine which clusters require further examination. Cluster list reviews are performed using the <a href="glv-list-view.html">Cluster List</a>.</p>
+<p><img class="img-responsive" src="Content/cluster-list-example.png" alt=""></p>
+
+
+
+<h2>Cluster review</h2>
+
+<p>You can click <strong>Inspect</strong> in the Cluster List to examine an individual cluster and review the workflow actions taken by the trader in the context of the market conditions at the time. Cluster reviews are conducted using the <a href="cv-cluster-view-cluster-scorecard.html">Cluster Scorecard</a>.
+
+
+<p><img class="img-responsive" src="Content/new-rpt-wash-review.png" alt=""/></p>
+
+	<p>The Cluster Scorecard provides detailed information about the cluster activity and score. From the scorecard, you can use the Market Ladder Replay <!--and Macro views--> to view the trader's activity in the context of market conditions.
+	</p>
+
+<p><b>Tip</b>: When clicking <strong>View Individual Clusters</strong> or the Cluster List icon to navigate back to the Cluster List, TT Score scrolls to the last inspected cluster and highlights it blue.</p>
+
+<p><img class="img-responsive" src="Content/cluster-list-highlight.png" alt=""></p>
+
+<!--
+
+<h2>Review Workflow</h2>
+
+<p>Selected data is best reviewed by focusing on one problematic trading model at a time. You begin by filtering the data for an individual model.</p>
+
+<p><strong>Note</strong>: Selected filters are applied to the data only after you click the <strong>Apply Filters</strong> button.</p>
+
+<p><img class="img-responsive" src="Content/review-workflow.png" alt=""/></p>
+
+<ol>
+	<li>
+		Conduct a <strong>cluster group review</strong> to identify cluster groups that need further examination using one of the Cluster Group views. Use the links below for information on using these views to identify problematic cluster groups:
+		<ul>
+			<li><a href="glv-group-view-outlier-chart.html#outlier-chart">Outlier chart</a></li>
+			<li><a href="glv-group-view-heat-map.html#heat-map">Heat Map</a></li>
+			<li><a href="glv-group-view-alerts.html">Daily Cluster Groups</a></li>
+		</ul>
+	</li>
+	<li>Selecting a problematic cluster group will open the Cluster List with filters applied to to view only the clusters in this group. Conduct a <a href="glv-list-view.html#interpreting">cluster list review</a> to identify individual clusters to review.
+	</li>
+	<li>For each identified cluster, you conduct a <strong>cluster review</strong>.
+		<p></p>
+		Cluster review methods vary by problemattic trading model. Consult this <a href="cv-identifying-problematic-activity.html">summary of cluster review methods</a> for more information.
+	</li>
+	<li>
+		After completing a cluster review, you <a href="cv-cluster-view-cluster-scorecard.html#cluster-review">write your disposition for the cluster</a> using the Cluster Scorecard.
+	</li>
+	<li>
+		After all problematic clusters are reviewed, return to step 1, select a different Cluster Group view and repeat steps 2 through 4.
+		<p></p>
+		<strong>Note</strong>: Filtering out clusters that have already been reviewed makes it easier to differentiate cluster groups that have been reviewed from cluster groups that still require review.
+	</li>
+	<li>Finally, after you have used each cluster group view and reviewed the relevant clusters within each group, you <a href="glv-group-view-alerts.html#group-review">record your disposition for each group</a> in the Daily Cluster Groups view.</li>
+</ol>
+
+<p>You have completed your review for one of the models and can now move on to the next problematic trading model by adjusting your MODELS filter.</p>
+-->
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
   </div> <!-- /.row -->
 </div> <!-- /.container-fluid -->
@@ -851,12 +910,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="us-selecting-data.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Selecting Data</h2>
 				</div>
 			</a>
 			
@@ -865,12 +924,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="us-reporting-recording-findings.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Recording reviews and opening investigations</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +984,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/us-analyzing-data.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

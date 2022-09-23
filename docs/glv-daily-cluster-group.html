@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Cluster Group View - Daily Cluster Groups | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Cluster Group View - Daily Cluster Groups</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -372,8 +371,9 @@
   
   
   
-    <a href="#views" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Configuration Examples</a>
-    <div class="collapse nav-indiv-article" id="views">
+
+    <a href="#views" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Configuration Examples</a>
+    <div class="collapse in nav-indiv-article" id="views">
   
 
   
@@ -429,11 +429,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="glv-daily-cluster-group.html" class="list-group-item list-group-subitem">Cluster Group View - Daily Cluster Groups</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Cluster Group View - Daily Cluster Groups</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Cluster Group View - Daily Cluster Groups</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Cluster Group View - Daily Cluster Groups</h1>
 
           
       
@@ -816,26 +816,174 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<p>The Daily Cluster Groups view displays groups of clusters automatically grouped by trader, instrument, and model with each row representing a unique combination of the three.</p>
 
 
-the reply mode is 4
+<h2>Daily Cluster Groups display</h2>
 
-the node does not have a return MPLS LSP path to the echo request source.
+<img class="img-responsive" src="Content/daily-cluster-group-display.png" />
+<p>The Daily Cluster Groups display is organized into the following sections:</p>
+	<ol>
+		<li><a href="#daily-cluster-group">Daily Cluster Group list</a>: Displays the Daily Cluster Groups view of the selected data as well as filtering and navigation tools.</li>
+	<!--	<li><a href="#statistical-summary">Summary Statistics Panel</a>: Shows metrics about the selected data in the current view.
+		</li> -->
+		<li><a href="#data-selection-panel">Data Selection Panel</a>: Manages the dates available to TT Score and specifies the criteria to use when populating the list.</li>
+	</ol>
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
+<h3 id="daily-cluster-group">Interpreting the Daily Cluster Group view</h3>
 
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
+<p>The Daily Cluster Group view allows you to conduct cluster group reviews and identify cluster groups which require further attention.</p>
+<p>You can review the clusters within a group by clicking <strong>View Clusters</strong> in the <strong>Actions</strong> column which will bring up the <a href="glv-list-view.html">Cluster List view</a> pre-filtered to the trader, instrument and model displayed.<p>
 
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+
+<img class="img-responsive" src="Content/daily-cluster-group-panel.png" />
+
+<p>The following columns are displayed for each Daily Cluster Group.</p>
+
+<ul>
+	<li><strong>% High Risk</strong>: The percentage of clusters flagged as being at high-risk for problematic trading activity.</li>
+	<li><strong>Max Score</strong>: The highest individual cluster score contained within this cluster group. Higher values indicate a greater likelihood of manipulative or disruptive trading activity.</li>
+	<li><strong>Model</strong>: The name of the model used for analyzing the clusters within this group.</li>
+	<li><strong>Clusters</strong>: The total number of clusters analyzed.</li>
+	<li><strong>Instrument</strong>: The name of instrument that was traded.</li>
+	<li><strong>Trader</strong>: The name or ID of the trader submitting the trades.</li>
+	<li><strong>Date</strong>: The date on which the trading activity in the clusters occured.</li>
+	<li><strong>Reviewed</strong>: An indication of whether the cluster group was reviewed.</li>
+	<li><strong>Actions</strong>: Action buttons:
+		<ul>
+			<li><strong>Review/Investigate</strong>: Launches the review sidebar where you can:
+				<ul>
+					<li>Record a disposition</li>
+					<li>Add a recorded disposition to an an existing investigation.</li>
+					<li>Create a new investigation to which the disposition can be added.</li>
+				</ul>
+			<li><strong>View Clusters</strong>: Launches a <a href="glv-list-view.html">Cluster List view</a> to view the clusters contained within this cluster group.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+<h3>Cluster List navigation and filters</h3>
+
+<p><img class="img-responsive" src="Content/cluster-list-navigation.png" alt=""/></p>
+<ol>
+	
+	<li>
+		Cluster Filters: Filter the view by trader, account, instrument, exchange, and line of business.
+	</li>
+	<li>
+		Select View: Switch between Individual Clusters, Heat Map, Outlier Chart, and Daily Cluster Groups views.
+	</li>
+	<li>Review Filters: View all clusters or filter by reviewed or unreviewed.
+	<li>
+		Export (Cluster List view only): Exports filtered data into a <strong>.csv </strong>spreadsheet file.
+	</li>
+	<li>
+		Bulk Review (Cluster List view only): Marks all clusters as "reviewed" for the selected model and data.
+	</li>
+</ol>
+
+
+
+<h3 id="group-review">Daily Cluster Group review</h3>
+
+<p>The Daily Cluster Group Review lets you record group-level notes and recommendations and view any dispositions recorded for this group.</p>
+
+<p>Click <strong>Review/Investigate</strong> in the <strong>Actions</strong> column to access the <strong>Review</strong> sidebar.</p>
+ 
+<img class="img-responsive" src="Content/daily-cluster-group-review-panel.png" />
+
+<p>From within the <strong>Review Sidebar</strong> you can:</p>
+<ol>
+	<li>Enter a disposition for this cluster group.</li>
+	<li>View the review history for this cluster group</li>
+	<li>Add this cluster to an existing investigation or create a new investigation towhich to add this cluster.</li>
+</ol>
+
+<p><img class="img-responsive" src="Content/daily-cluster-view-review-panel-2.png" /></p>
+
+<!-- include the Data Selection Panel section -->
+<h3 id="data-selection-panel">Data Selection Panel</h3>
+
+
+
+	<p>On the left of the screen, the <a href="us-selecting-data.html">Data Selection Panel</a> shows the daily activity logs that have been selected using the date picker and are available for data visualization. It also includes filters to apply to the 
+		data view.</p>
+
+	<img class="img-responsive" src="Content/new-us-import-panel.png" />
+
+	<p>The panel includes the following:</p>
+	
+<ol>
+	<li><strong>Score Range</strong>: Sets the maximum score of the clusters to include in each view.</li> 
+	<li><strong>Date Range</strong>: Date-based selector to add daily activity data to analyze.</li>
+	<li><strong>MODELS</strong>: Sets which types of suspect trading patterns to analyze in the data. Check this checkbox to apply all problematic trading models.
+		
+
+
+<p></p>
+TT Score uses the following models to analyze data for problematic trading patterns:
+
+<ul>
+	
+	
+
+	<li><a href="inv-abusive-messaging.html">Abusive Messaging</a>: Quote stuffing schemes designed to introduce predictable latency into an exchange's quoting engine or malfunctioning algorithms that might cause market disruptions.</li>
+
+<li><a href="inv-automated-collusive-spoofing.html">Automated Collusive Spoofing</a>: Patterns of manipulative or disruptive trading activity by multiple traders working together to automatically submit a number of orders for which they have no intention of executing in an attempt to move the market.</li>
+
+<li><a href="inv-automated-spoofing.html">Automated Spoofing</a>: Patterns of manipulative or disruptive trading activity that involve the automated placement of a number of orders for which a trader has no intention of executing in an attempt to move the market.</li>
+
+
+	<li><a href="inv-collusive-spoofing.html">Collusive Spoofing</a>: Patterns of manipulative or disruptive trading activity by multiple traders working together to place a number of orders for which they have no intention of executing in an attempt to move the market.</li>
+
+	<li><a href="inv-cross-trading.html">Cross Trading</a>: A cross trade occurs when a buy order and a sell order for the same instrument are entered for different accounts under the same management, such as a broker or portfolio manager.</li>
+
+	<li><a href="inv-exchange-messaging-rate-limits.html">Exchange Messaging Rate Limits</a>: Instances where traders exceeded the exchange message rate limit for a set period of time during a trading session.</li>
+
+	<li><a href="inv-marking-the-close.html">Marking the Close</a>: Trading activity intended to manipulate the settlement price of an instrument during its settlement period.</li>
+
+		<li><a href="inv-momentum-ignition.html">Momentum Ignition</a>: Behaviors that indicate an attempt to create an artificial price movement with aggressive orders followed by an attempt to capitalize on such movement.</li>
+
+			<li><a href="inv-pinging.html">Pinging</a>: The entry of multiple small orders intended to discover hidden book depth followed by a series of order actions designed to force the large order to trade at less desirable prices.</li>
+	
+	<li><a href="inv-spoofing.html">Spoofing</a>: Patterns of manipulative or disruptive trading activity that involve the placement of a number of orders for which a trader has no intention of executing in an attempt to move the market.</li>
+
+		
+
+	<li><a href="inv-wash-trading.html">Wash Account</a>: The same account ID is both the buyer and seller in the same transaction.</li>
+	<li><a href="inv-wash-trading.html">Wash Trader</a>: The same trader ID is both the buyer and seller in the same transaction.</li>
+
+
+
+
+
+
+
+</ul>
+
+<!-- also included in https://library.tradingtechnologies.com/tt-score/us-selecting-data.html -->
+
+	</li>
+	<li><strong>Products</strong>: Sets one or more of the following product types to include in each view:
+		<ul>
+			<li>Futures
+				<li>Spreads-Strategies
+					<li>Equity-Index Options
+					</ul>
+
+
+
+	</li>
+	<li><b>Keep Dropdown Filters Selected</b>: Maintains your selected trader, account, instrument, and exchange filters when changing the selected date(s), models, or product types.</li>
+	<li><strong>Apply Filters</strong>: Applies the selected dates and filters.</li>
+</ol>
+
+
+
 
 
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
@@ -851,12 +999,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="glv-group-view-heat-map.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Cluster Group View - Heat Map</h2>
 				</div>
 			</a>
 			
@@ -865,12 +1013,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="glv-list-view.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Cluster List View</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +1073,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/glv-daily-cluster-group.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

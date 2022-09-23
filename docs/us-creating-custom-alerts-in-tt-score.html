@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Creating custom alerts in TT Score | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Creating custom alerts in TT Score</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -232,8 +231,9 @@
   
   
   
-    <a href="#using-tt-score" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Using MPLS</a>
-    <div class="collapse nav-indiv-article" id="using-tt-score">
+
+    <a href="#using-tt-score" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Using MPLS</a>
+    <div class="collapse in nav-indiv-article" id="using-tt-score">
   
 
   
@@ -293,11 +293,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="us-creating-custom-alerts-in-tt-score.html" class="list-group-item list-group-subitem">Creating custom alerts in TT Score</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Creating custom alerts in TT Score</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Creating custom alerts in TT Score</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Creating custom alerts in TT Score</h1>
 
           
       
@@ -816,26 +816,112 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+<p>TT Score gives you the ability to create and manage custom alerts that are triggered when your criteria is met for 
+	specific models,<!-- accounts,--> products, or scores. For example, you can create an alert that sends a user an email whenever a model scores above a certain range.</p>
 
 
-the reply mode is 4
+<h2>TT Score alerts page</h2>
 
-the node does not have a return MPLS LSP path to the echo request source.
+<p>Alerts and notifications are viewable from the alerts page via the TT Score Dashboard. As a TT Score administrator, you can create, enable, edit, and delete alerts from this page. As a user, you can review notifications and navigate directly to the clusters that caused the alert to trigger.</p>
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
+<p><img class="img-responsive" src="Content/us-alert-display.png" alt="" /></p>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
+<p>The alerts page includes the following:
+	<ol>
+		<li><b>Add Alert</b> &mdash; Opens the Alert Manager to create a new alert.
+			<li><b>Active</b> &mdash; Enables or disables an alert.
+			<li><b>Edit</b> &mdash; Opens the Alert Manager to modify an alert.
+				<li><b>Notifications</b> &mdash; Displays notifications sent via email when the alert was triggered. In each notification, you can view the clusters that caused the alert to trigger.</li>
+			<li><b>Delete</b> &mdash; Deletes the alert.
+			</ol>
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
 
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
 
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+
+<h2>Adding an alert in TT Score</h2>
+
+<ol>
+	<li>Click the <b>Alerts</b> tab on the Dashboard and click <b>Add Alert</b>.
+
+<p><img class="img-responsive" src="Content/us-alert-step1.png" alt="" /></p>
+
+
+<li>Configure the alert using the <b>Alert Manager</b>.
+<!-- <p><img class="img-responsive" src="Content/us-alert-manager1.png" alt="" /></p> -->
+<p><img class="img-responsive" src="Content/us-alert-manager1-no-accounts.png" alt="" /></p>
+
+<p>Enter data for the following required fields:</p>
+<ul>
+		<li><b>Alert Name</b> &mdash; Custom name for the alert.
+			<li><b>Alert Description</b> &mdash; Purpose of the alert.
+			<li><b>Send email to</b> &mdash; Sets where notifications are sent after the alert is triggered. Enter a valid email address.
+			<li><b>Conditions</b> &mdash; Select one of the following criteria: 
+				<ul>
+					<li><b>Alert me when ALL of the following conditions are met</b>: All conditions must be me before the alert is triggered.
+						<li><b>Alert me when ANY of the following conditions are met</b>: One or more of the conditions must be met to trigger the alert.
+						</ul>
+			</li>
+			 <li><b>Add Condition</b> &mdash; Select one or more of the following alert conditions and operators:
+			 	<ul>
+		<!-- <Li><b>Account</b> &mdash; Creates an alert based on an account in your company. Choose an operator (e.g., "equals" or "not equals") then select one or more accounts from the list.</li> -->
+			<li><b>Model</b> &mdash; Creates an alert based on problematic trading model. Choose an operator and select one or more models.</li>
+			<li><b>Product Type</b> &mdash; Creates an alert based on one or more of the following product types: Options, Outrights, Spreads, Common Stock, Index, or Bond.</li>
+			<li><b>Score</b> &mdash; Creates an alert based on cluster score. Use the slider to set the score value.
+			</li>
+
+</ul>
+</ul>
+</li>
+			<li>Click <b>Save</b>.
+
+				<p>The status message appears in the upper right corner of the screen and the new alert is displayed at the top of the data grid.</p>
+
+					<p><img class="img-responsive" src="Content/us-alert-added.png" alt="" /></p>
+
+</li>
+</ol>
+
+
+
+
+<h2>Viewing an alert notification in TT Score</h2>
+
+<p>After an alert is triggered<!-- and you receive an email notification-->, you can view the notification on the alerts page and navigate directly to the clusters that caused the alert to trigger.</p>
+
+<ol>
+	<li>Click the <b>Alerts</b> tab on the dashboard.
+
+		<p><img class="img-responsive" src="Content/us-alert-tab.png" alt="" /></p>
+
+<li>Click <b>Notifcations</b> for the triggered alert.
+
+	<!-- <p>This is the same alert sent to you via email when the alert was triggered.</p> -->
+<p><b>Tip</b>: You can also click the arrow in the alert row to view notifications.</p>
+
+		<p><img class="img-responsive" src="Content/us-alert-click-notifications.png" alt="" /></p>
+
+
+
+<li>Click <b>View clusters</b> in the notification message.
+				<p>The clusters that meet the alert criteria are displayed.</p>
+
+		<p><img class="img-responsive" src="Content/us-alert-view-clusters.png" alt="" /></p>
+
+<p><b>Tip</b>: You can also click <b>View Clusters</b> in the notification sent to you via email to list the clusters that triggered the alert.</p>
+
+
+<li>To navigate to a cluster, select it in the data grid. 
+		<p><img class="img-responsive" src="Content/us-alert-select-cluster.png" alt="" /></p>
+
+<p>The Cluster Scorecard appears for the cluster you are reviewing.</p>
+
+</li>
+</ol>
+
+
+
+
+
 
 
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
@@ -851,12 +937,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="us-reporting-recording-findings.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Recording reviews and opening investigations</h2>
 				</div>
 			</a>
 			
@@ -865,12 +951,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="us-generating-reports-in-tt-score.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Generating Reports in TT Score</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +1011,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/us-creating-custom-alerts-in-tt-score.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            

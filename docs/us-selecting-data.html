@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Configuring MPLS | TT Score Help and Tutorials</title>
+      <title>Selecting Data | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="index.html">TT Score</a></li>
 			
 			 	
-			 		<li class="active">Configuring MPLS</li>
+			 		<li class="active">Selecting Data</li>
 			 	
 		
 </ul>
@@ -115,9 +115,8 @@
   
   
   
-
-    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
-    <div class="collapse in nav-indiv-article" id="overview">
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>MPLS Overview</a>
+    <div class="collapse nav-indiv-article" id="overview">
   
 
   
@@ -146,11 +145,11 @@
     
     
       
-       <!-- in source YML header, should also match the filename/url -->
+      
 
-          <a href class="active list-group-item list-group-subitem">Configuring MPLS</a>
-                    
-        
+          <a href="ovw-accessing-tt-score-c.html" class="list-group-item list-group-subitem">Configuring MPLS</a>
+                        
+      
 
     
   
@@ -232,8 +231,9 @@
   
   
   
-    <a href="#using-tt-score" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Using MPLS</a>
-    <div class="collapse nav-indiv-article" id="using-tt-score">
+
+    <a href="#using-tt-score" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Using MPLS</a>
+    <div class="collapse in nav-indiv-article" id="using-tt-score">
   
 
   
@@ -260,11 +260,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="us-selecting-data.html" class="list-group-item list-group-subitem">Selecting Data</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Selecting Data</a>
+                    
+        
 
     
   
@@ -803,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Configuring MPLS</span>
+        <span>Selecting Data</span>
       </div>
 
-      <h1>Configuring MPLS</h1>
+      <h1>Selecting Data</h1>
 
           
       
@@ -816,28 +816,254 @@
 
  
 
-IP-Less MPLS-TP Ping and MPLS-TP Traceroute
-In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
+
+	<p>On the left of the screen, the <a href="us-selecting-data.html">Data Selection Panel</a> shows the daily activity logs that have been selected using the date picker and are available for data visualization. It also includes filters to apply to the 
+		data view.</p>
+
+	<img class="img-responsive" src="Content/new-us-import-panel.png" />
+
+	<p>The panel includes the following:</p>
+	
+<ol>
+	<li><strong>Score Range</strong>: Sets the maximum score of the clusters to include in each view.</li> 
+	<li><strong>Date Range</strong>: Date-based selector to add daily activity data to analyze.</li>
+	<li><strong>MODELS</strong>: Sets which types of suspect trading patterns to analyze in the data. Check this checkbox to apply all problematic trading models.
+		
 
 
-the reply mode is 4
+<p></p>
+TT Score uses the following models to analyze data for problematic trading patterns:
 
-the node does not have a return MPLS LSP path to the echo request source.
+<ul>
+	
+	
 
-<h2>MPLS LSP Ping</h2>
-<p>
-The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
+	<li><a href="inv-abusive-messaging.html">Abusive Messaging</a>: Quote stuffing schemes designed to introduce predictable latency into an exchange's quoting engine or malfunctioning algorithms that might cause market disruptions.</li>
 
-<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
+<li><a href="inv-automated-collusive-spoofing.html">Automated Collusive Spoofing</a>: Patterns of manipulative or disruptive trading activity by multiple traders working together to automatically submit a number of orders for which they have no intention of executing in an attempt to move the market.</li>
 
-<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
-
-<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
-  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
-
-<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
+<li><a href="inv-automated-spoofing.html">Automated Spoofing</a>: Patterns of manipulative or disruptive trading activity that involve the automated placement of a number of orders for which a trader has no intention of executing in an attempt to move the market.</li>
 
 
+	<li><a href="inv-collusive-spoofing.html">Collusive Spoofing</a>: Patterns of manipulative or disruptive trading activity by multiple traders working together to place a number of orders for which they have no intention of executing in an attempt to move the market.</li>
+
+	<li><a href="inv-cross-trading.html">Cross Trading</a>: A cross trade occurs when a buy order and a sell order for the same instrument are entered for different accounts under the same management, such as a broker or portfolio manager.</li>
+
+	<li><a href="inv-exchange-messaging-rate-limits.html">Exchange Messaging Rate Limits</a>: Instances where traders exceeded the exchange message rate limit for a set period of time during a trading session.</li>
+
+	<li><a href="inv-marking-the-close.html">Marking the Close</a>: Trading activity intended to manipulate the settlement price of an instrument during its settlement period.</li>
+
+		<li><a href="inv-momentum-ignition.html">Momentum Ignition</a>: Behaviors that indicate an attempt to create an artificial price movement with aggressive orders followed by an attempt to capitalize on such movement.</li>
+
+			<li><a href="inv-pinging.html">Pinging</a>: The entry of multiple small orders intended to discover hidden book depth followed by a series of order actions designed to force the large order to trade at less desirable prices.</li>
+	
+	<li><a href="inv-spoofing.html">Spoofing</a>: Patterns of manipulative or disruptive trading activity that involve the placement of a number of orders for which a trader has no intention of executing in an attempt to move the market.</li>
+
+		
+
+	<li><a href="inv-wash-trading.html">Wash Account</a>: The same account ID is both the buyer and seller in the same transaction.</li>
+	<li><a href="inv-wash-trading.html">Wash Trader</a>: The same trader ID is both the buyer and seller in the same transaction.</li>
+
+
+
+
+
+
+
+</ul>
+
+<!-- also included in https://library.tradingtechnologies.com/tt-score/us-selecting-data.html -->
+
+	</li>
+	<li><strong>Products</strong>: Sets one or more of the following product types to include in each view:
+		<ul>
+			<li>Futures
+				<li>Spreads-Strategies
+					<li>Equity-Index Options
+					</ul>
+
+
+
+	</li>
+	<li><b>Keep Dropdown Filters Selected</b>: Maintains your selected trader, account, instrument, and exchange filters when changing the selected date(s), models, or product types.</li>
+	<li><strong>Apply Filters</strong>: Applies the selected dates and filters.</li>
+</ol>
+
+
+
+<h2>Date Range</h2>
+
+<p>To begin reviewing trading activity, daily audit logs must be selected by date. These daily logs can be loaded and unloaded to add or remove them from the selected view.</p>
+
+<p>The <strong>DATE RANGE</strong> section of the Data Selection Panel includes the following:</p>
+
+
+<p><img class="img-responsive" src="Content/new-us-date-range.png" alt="" /></p>
+
+
+<ol>
+  <li><strong>Date Picker</strong>: Date-based selector to add daily activity data into <strong>TT Score</strong>.</li>
+  <li><strong>Selected Dates</strong>: Dated logs that are included in the current view.</li>
+</ol>
+
+
+<p>Using this section of the panel, you can:</p>
+<ul>
+  <li><a href="#adding">Add daily logs to TT Score</a></li>
+  <li><a href="#unload">Unload daily logs from the current view</a></li>
+  <li><a href="#reload">Reload daily logs to the current view</a></li>
+  <!-- <li><a href="#remove">Remove daily logs from TT Score.</a></li> -->
+  <!-- <li><a href="#remove">Apply filters to the selected data</a></li>  -->
+</ul>
+
+
+<h2 id="adding">Loading daily logs</h2>
+<p>Use the <strong>DATE RANGE</strong> section to load activity logs you want TT Score to analyze.</p>
+
+<p>To load daily logs:</p>
+<ol>
+  <li>
+    Click the <strong>Date Picker</strong>.
+
+    <p><img class="img-responsive" src="Content/new-us-date-range-1.png" alt="" /></p>
+  </li>
+
+  <!--   <li>
+      Click the Date Range drop-down to display the picker.
+      <p><img class="img-responsive" src="Content/us-date-range-2.png" alt=""/></p>
+    </li> -->
+
+
+  <li>
+    Select the dates you would like to to add by doing one of the following:
+    <ul>
+      <li>Select one of the pre-defined dates or date ranges.</li>
+      <li>Click <strong>Custom Range</strong> and select the desired start and end dates and times (hh:mm:ss).</li>
+    </ul>
+    <p><img class="img-responsive" src="Content/new-us-date-range-3.png" alt="" /></p>
+  </li>
+
+
+  <li>Click <strong>Apply</strong>.
+    <p></p>
+   </li> The selected logs are displayed in the <strong>Date Range</strong> section of the Data Selection Panel.
+
+    <p><img class="img-responsive" src="Content/new-us-date-range-4.png" alt="" /></p>
+  </li>
+  <li>Click <strong>Apply Filters</strong> at the bottom of the Date Selection Panel to add the selected dates to the current view.</li>
+  <!-- <p><img class="img-responsive" src="Content/new-us-date-range-5.png" alt="" /></p> -->
+  <p><img class="img-responsive" src="Content/mc-new-us-date-range-5.png" alt="" /></p>
+</ol>
+
+
+
+
+<h2 id="unload">Unload daily logs from the current view</h2>
+
+<p>After adding daily logs, you can adjust which days are included in the view by loading or unloading log dates.</p>
+
+<!--<p><strong>Note</strong>: Any changes to log dates currently being viewed in TT Score require you to click <strong>Apply Filters</strong> to add the log changes to the current view.</p>-->
+
+<p>To unload a day's activity log:</p>
+<ol>
+  <li>
+    In the <strong>DATE RANGE</strong> section, click the <strong>X</strong> in the date you want to remove.
+
+  <!--  <p><img class="img-responsive" src="Content/new-us-remove-1.png" alt="" /></p> -->
+    <p><img class="img-responsive" src="Content/new-us-remove-1a.png" alt="" /></p>
+
+    The log is moved below the selected logs in the <strong>Date Range</strong> section.
+
+ <!--   <p><img class="img-responsive" src="Content/new-us-remove-2.png" alt="" /></p> -->
+    <p><img class="img-responsive" src="Content/new-us-remove-2a.png" alt="" /></p>
+
+  </li>
+
+  <li>Click <strong>Apply Filters</strong>.
+
+ <!--   <p><img class="img-responsive" src="Content/new-us-remove-3.png" alt="" /></p> -->
+   <!-- <p><img class="img-responsive" src="Content/new-us-remove-3a.png" alt="" /></p> -->
+  <p><img class="img-responsive" src="Content/mc-new-us-date-range-5.png" alt="" /></p>
+
+
+    The view is updated to reflect the trading activity for the remaining dates.
+
+
+  </li>
+  <li>
+    Repeat to unload additional date logs.
+
+    <!--  <p><img class="img-responsive" src="Content/us-unload-date-1b.png" alt=""/></p> -->
+  </li>
+</ol>
+
+
+<h2 id="reload">Reload daily logs to the current view</h2>
+
+
+<p>To reload a date's activity log:</p>
+<ol>
+  <li>
+    In the <strong>DATE RANGE</strong> section, click the bottom of the section and select a date.
+
+   <!--   <p><img class="img-responsive" src="Content/new-us-reload-1.png" alt="" /></p> -->
+ <p><img class="img-responsive" src="Content/new-us-reload-1a.png" alt="" /></p> 
+
+    The log is reloaded and included with the selected dates.
+
+ <!--   <p><img class="img-responsive" src="Content/new-us-reload-2.png" alt="" /></p> -->
+   <p><img class="img-responsive" src="Content/new-us-reload-2a.png" alt="" /></p> 
+
+  </li>
+  <li>Click <strong>Apply Filters</strong> at the bottom of the panel.
+
+    The view is updated to reflect the trading activity for the selected date logs.
+
+      <!--  <p><img class="img-responsive" src="Content/us-reload-date-1b.png" alt=""/></p> -->
+  </li>
+
+  <li>
+    Repeat to reload additional date logs.
+  </li>
+</ol>
+
+<!-- does reset remove from Score?
+
+<h2 id="remove">Removing logs from TT Score</h2>
+<p>To remove all of the uploaded logs from TT Score, click the <strong>Reset</strong> button.</p>
+  <p><img class="img-responsive" src="Content/us-remove-logs.png" alt=""/></p> -->
+
+<h2>Applying filters to selected data</h2>
+
+
+<p>The data that you load into TT Score can be filtered by score range, risk model, and product type as needed.</p>
+
+<p>To apply filters to selected data</p>:
+
+<ol>
+  <li>Click and drag the slider in the <strong>SCORE RANGE</strong> section to include or exclude clusters from the view.
+
+    <p><img class="img-responsive" src="Content/new-us-filter-1.png" alt="" /></p>
+
+
+  </li>
+
+  <li>Check the checkbox of one or more risk models in the <strong>MODELS</strong> section to apply it to the view.
+
+   <!-- <p><img class="img-responsive" src="Content/new-us-filter-2.png" alt="" /></p> -->
+    <p><img class="img-responsive" src="Content/mc-new-us-filter-2.png" alt="" /></p>
+
+
+    Models that are unchecked are not applied to the data.
+
+  </li>
+  <li>Click a product type in the <strong>PRODUCTS</strong> section to filter the data for futures, spreads and strategies, or equity-index options instruments.
+
+    <p><img class="img-responsive" src="Content/new-us-filter-3.png" alt="" /></p>
+
+  </li>
+
+</ol>
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
   </div> <!-- /.row -->
 </div> <!-- /.container-fluid -->
@@ -851,12 +1077,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="ovw-how-tt-score-works-c.html">
+			<a href="us-using-overview-c.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2>How MPLS Works</h2>
+	  				<h2>Using MPLS</h2>
 				</div>
 			</a>
 			
@@ -865,12 +1091,12 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
 			
-			<a href="us-using-overview-c.html">
+			<a href="us-analyzing-data.html">
 				<div class="lower-nav-arrow-right">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Next:</h1>
-					<h2>Using MPLS</h2> 
+					<h2>Analyzing trading activity using data visualizations</h2> 
 				</div>
 			</a>
 			
@@ -925,7 +1151,7 @@ The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR 
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-c.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/us-selecting-data.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            
