@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Component&colon; Instrument block | TT Score Help and Tutorials</title>
+      <title>Hosting an Application in Docker Containers | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="https://content.cisco.com/chapter.sjs?uri=/searchable/chapter/content/en/us/td/docs/iosxr/cisco8000/application-hosting/b-application-hosting-cg-cisco8000/m-preface-ah-cg.html.xml&platform=Cisco%208000%20Series%20Routers&release=All">8000 Series</a></li>
 			
 			 	
-			 		<li class="active">Component&colon; Instrument block</li>
+			 		<li class="active">Hosting an Application in Docker Containers</li>
 			 	
 		
 </ul>
@@ -115,8 +115,9 @@
   
   
   
-    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Packet I/O and Hosting Applications</a>
-    <div class="collapse nav-indiv-article" id="overview">
+
+    <a href="#overview" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Packet I/O and Hosting Applications</a>
+    <div class="collapse in nav-indiv-article" id="overview">
   
 
   
@@ -134,11 +135,11 @@
     
     
       
-      
+       <!-- in source YML header, should also match the filename/url -->
 
-          <a href="ovw-how-tt-score-works-8000.html" class="list-group-item list-group-subitem">Hosting an Application in Docker Containers</a>
-                        
-      
+          <a href class="active list-group-item list-group-subitem">Hosting an Application in Docker Containers</a>
+                    
+        
 
     
   
@@ -802,10 +803,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Component&colon; Instrument block</span>
+        <span>Hosting an Application in Docker Containers</span>
       </div>
 
-      <h1>Component&colon; Instrument block</h1>
+      <h1>Hosting an Application in Docker Containers</h1>
 
           
       
@@ -815,376 +816,28 @@
 
  
 
-<h2>Overview</h2>
-<p>When sending the instrument component block in a FIX execution report, you can specify the instrument in any of the following methods:</p>
+<p>This section provides the procedure for hosting an application in docker containers.
+
+<p>The iPerf application is used as an example to demonstrate the hosting at a server and a client router.
+
+<p>Verify Reachability of IOS XR and Packet I/O Infrastructure on the router that hosts the iPerf application. You can enable the following Packet I/O functionalities on the server and client routers prior to hosting the iPerf application in docker containers, for additional features on the routers:
 <ul>
 	<li>
-		<a href="#by-id">By security ID</a>
-	</li>
-	<li>
-		<a href="#by-name">By security name</a>
-	</li>
+Program Routes in the Kernel—to send or receive traffic to a remote network using a specific interface.
+<li>
+Configure VRFs in the Kernel—to run the iperf application in a non-default VRF.
+<li>
+Configure Traffic Protection for Linux Networking—to secure the router by restricting access to the router on which the iperf application is hosted.</li>
 </ul>
 
-<p>These methods can be used as follows:</p>
-<ul>
-	<li>
-		You can use the security ID method for all cases.
-	</li>
-	<li>
-		You can use the security name method for all contracts on all exchanges except for ICE contracts that use daily, weekly, variable, and undefined delivery terms.
-	</li>
-</ul>
+<p>You can build the docker image of the application following the standard docker build procedures. The docker image of any application (for example, iPerf) is built only once, after which, that docker image can be copied to other devices where the application can be hosted in docker containers.</p>
 
-<h2 id="by-id">When specifying by security ID</h2>
-<table class="table table-striped table-bordered" border="1">
-	<thead>
-		<tr>
-			<th>Tag #</th>
-			<th>Field Name</th>
-			<th>Req&#8217;d</th>
-			<th>Data type</th>
-			<th>Comments</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="text-right" id="tag48">48</td>
-			<td>SecurityID</td>
-			<td class="text-center">Y</td>
-			<td>String</td>
-			<td>
-				<p>ID of the instrument</p>
-				<p><strong>Note</strong>: The combination of this tag and tag 22 (IDSource) must uniquely identify an instrument in the TT platform.</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag22">22</td>
-			<td>IDSource</td>
-			<td class="text-center">Y</td>
-			<td>String</td>
-			<td>
-				<p>Source for the value of tag 48 (SecurityID).</p>
-				<p>Possible values include:</p>
-				<ul>
-					<li><strong>5</strong>: RIC code</li>
-					<li><strong>8</strong>: Exchange symbol</li>
-					<li><strong>96</strong>: TT security ID</li>
-					<li><strong>97</strong>: Alias</li>
-					<li><strong>98</strong>: Name</li>
-					<li><strong>X</strong>: Series key</li>
-				</ul>
-				<p><strong>Note</strong>: The following markets support RIC codes (22=5) for identifying futures, spreads and options instruments in tag 48 (SecurityID):</p>
-				<ul>
-  <li>ASX</li>
-  <li>DGCX</li>
-  <li>CFE</li>
-  <li>CME</li>
-  <li>EEX</li>
-  <li>EUREX</li>
-  <li>Euronext</li>
-  <li>Hkex</li>
-  <li>ICE</li>
-  <LI>ICE_L</LI>
-  <li>LME</li>
-  <LI>MEFF</LI>
-  <li>MX</li>
-  <li>OSE</li>
-  <li>SGX</li>
-  <li>TFX</li>
-  <li>TOCOM</li>
-</ul>
-				<p><strong>Note</strong>: The combination of this tag and tag 48 (SecurityID) must uniquely identify an instrument in the TT platform.</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag207">207</td>
-			<td>SecurityExchange</td>
-			<td class="text-center">C</td>
-			<td>Exchange</td>
-			<td>
-				<p>Name of the market where the instrument trades.</p>
-				<p>TT FIX uses this value to identify the exchange that offers the security.</p>
-				<p>Possible values include:</p>
+<a href="#docker">Docker Operations</a>
+<br>
+<a href="proc">Procedure for Hosting Applications in Docker Containers</a>
+</br>
 
-<ul>
-<li>AGGREGATOR</li>
-<li>ALGO</li>
-<li>ASE</li>
-<li>SX</li>
-<li>B3</li>
-<li>BitMEX</li>
-<li>BrokerTec</li>
-<li>CBOT</li>
-<li>CFE</li>
-<li>CME</li>
-<li>Coinbase</li>
-<li>CoinFLEX</li>
-<li>CurveGlobal</li>
-<li>CZCE</li>
-<li>DCE</li>
-<li>DGCX</li>
-<li>EEX</li>
-<li>Eurex</li>
-<li>Euronext</li>
-<li>Fenics</li>
-<li>FEX</li>
-<li>HKEX</li>
-<li>ICE</li>
-<li>ICE_L</li>
-<li>IDEM</li>
-<li>INE</li>
-<li>KCG</li>
-<li>LME</li>
-<li>LSE</li>
-<li>MEFF</li>
-<li>MOEX</li>
-<li>MX</li>
-<li>MX</li>
-<li>NDAQ_EU</li>
-<li>NFI</li>
-<li>NFX</li>
-<li>OSE</li>
-<li>SGX</li>
-<li>TFX</li>
-<li>TOCOM</li>
-</ul>
-
-				<p>Condition: Required when Tag 100 (ExtDestination) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
-			</td>
-		</tr>
-		<tr>
-			<td><em>OR</em></td>
-			<td colspan="5"></td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag100">100</td>
-			<td>ExDestination</td>
-			<td class="text-center">C</td>
-			<td>Exchange</td>
-			<td>
-				<p>Market Identifier Code (MIC) of the sub-market where the instrument trades.</p>
-				<p>Execution destination for the order as defined by the institution</p>
-				<p>Some traders use this tag in place of Tag 207 (SecurityExchange) to identify the exchange.</p>
-				<p>ISO 10383 defines a comprehensive list of <a href="http://www.iso15022.org/MIC/homepageMIC.htm">MIC codes</a>.</p>
-
-				<p>Condition: Required when Tag 207 (SecurityExchange) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag55">55</td>
-			<td>Symbol</td>
-			<td class="text-center">Y</td>
-			<td>String</td>
-			<td>
-				<p>Exchange-provided product symbol for the tradable product.</p>
-				<p>When specifying instruments for <a href="Msg_NewOrderMultileg_AB.html">NewOrderMultileg (AB)</a> and <a href="Msg_MultilegOrderCancelReplace_AC.html">MultilegOrderCancelReplace (AC)</a>:</p>
-				<ul>
-					<li>
-						When submitting multi-leg instrument, set tag 55 to "[NA]".
-					</li>
-					<li>
-						When tag 54 (Side) is B or C, the value in tag 55 is ignored; the values in tag 600 (LegSymbol) and tag 624 (LegSide) in the <a href="Group_LegInstrumentGrp.html">LegInstrument</a> group are used instead.
-					</li>
-				</ul>
-			</td>
-		</tr>
-
-	</tbody>
-</table>
-
-<h2 id="by-name">When specifying by security name</h2>
-<p>You can also identify instruments by specifying its name and characteristics. You might use this method if your application or business practices do not use security IDs.</p>
-
-<table class="table table-striped table-bordered" border="1">
-	<thead>
-		<tr>
-			<th>Tag #</th>
-			<th>Field Name</th>
-			<th>Req&#8217;d</th>
-			<th>Data type</th>
-			<th>Comments</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="text-right" id="tag207">207</td>
-			<td>SecurityExchange</td>
-			<td class="text-center">C</td>
-			<td>Exchange</td>
-			<td>
-				<p>Name of the market where the instrument trades.</p>
-				<p>TT FIX uses this value to identify the exchange that offers the security.</p>
-				<p>Possible values include:</p>
-
-<ul>
-<li>AGGREGATOR</li>
-<li>ALGO</li>
-<li>ASE</li>
-<li>SX</li>
-<li>B3</li>
-<li>BitMEX</li>
-<li>BrokerTec</li>
-<li>CBOT</li>
-<li>CFE</li>
-<li>CME</li>
-<li>Coinbase</li>
-<li>CoinFLEX</li>
-<li>CurveGlobal</li>
-<li>CZCE</li>
-<li>DCE</li>
-<li>DGCX</li>
-<li>EEX</li>
-<li>Eurex</li>
-<li>Euronext</li>
-<li>Fenics</li>
-<li>FEX</li>
-<li>HKEX</li>
-<li>ICE</li>
-<li>ICE_L</li>
-<li>IDEM</li>
-<li>INE</li>
-<li>KCG</li>
-<li>LME</li>
-<li>LSE</li>
-<li>MEFF</li>
-<li>MOEX</li>
-<li>MX</li>
-<li>MX</li>
-<li>NDAQ_EU</li>
-<li>NFI</li>
-<li>NFX</li>
-<li>OSE</li>
-<li>SGX</li>
-<li>TFX</li>
-<li>TOCOM</li>
-</ul>
-
-				<p>Condition: Required when Tag 100 (ExtDestination) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
-			</td>
-		</tr>
-		<tr>
-			<td><em>OR</em></td>
-			<td colspan="5"></td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag100">100</td>
-			<td>ExDestination</td>
-			<td class="text-center">C</td>
-			<td>Exchange</td>
-			<td>
-				<p>Market Identifier Code (MIC) of the sub-market where the instrument trades.</p>
-				<p>Execution destination for the order as defined by the institution</p>
-				<p>Some traders use this tag in place of Tag 207 (SecurityExchange) to identify the exchange.</p>
-				<p>ISO 10383 defines a comprehensive list of <a href="http://www.iso15022.org/MIC/homepageMIC.htm">MIC codes</a>.</p>
-
-				<p>Condition: Required when Tag 207 (SecurityExchange) is absent and when tag 22 (IDSource) is 8 (Exchange symbol), 97 (Alias) or 9 (Name).</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag55">55</td>
-			<td>Symbol</td>
-			<td class="text-center">Y</td>
-			<td>String</td>
-			<td>
-				<p>Exchange-provided product symbol for the tradable product.</p>
-				<p>When specifying instruments for <a href="Msg_NewOrderMultileg_AB.html">NewOrderMultileg (AB)</a> and <a href="Msg_MultilegOrderCancelReplace_AC.html">MultilegOrderCancelReplace (AC)</a>:</p>
-				<ul>
-					<li>
-						When submitting multi-leg instrument, set tag 55 to "[NA]".
-					</li>
-					<li>
-						When tag 54 (Side) is B or C, the value in tag 55 is ignored; the values in tag 600 (LegSymbol) and tag 624 (LegSide) in the <a href="Group_LegInstrumentGrp.html">LegInstrument</a> group are used instead.
-					</li>
-				</ul>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag167">167</td>
-			<td>SecurityType</td>
-			<td class="text-center">Y</td>
-			<td>String</td>
-			<td>
-				<p>Asset class of the instrument.</p>
-				<p>Possible values include:</p>
-<ul>
-  <li><strong>FUT</strong>: future</li>
-  <li><strong>MLEG</strong>: multi-leg</li>
-  <li><strong>OPT</strong>: option</li>
-  <li><strong>SPOT</strong>: EEX spot products</li>
-  <li><strong>CUR</strong>: currency</li>
-  <li><strong>TBOND</strong>: treasury bond</li>
-  <li><strong>CS</strong>: common stock</li>
-  <li><strong>NONE</strong>: No security type (Not valid for 35=c, e or V)</li>
-  <!--
-  <li><strong>STRA</strong>: strategy</li>
-  <li><strong>GOVT</strong>: sovereign debt</li>
-  <li><strong>NRG</strong>: energy</li>
-  -->
-</ul>
-
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag55">55</td>
-			<td>Symbol</td>
-			<td class="text-center">Y</td>
-			<td>String</td>
-			<td>
-				<p>Exchange-provided product symbol for the tradable product.</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag200">200</td>
-			<td>MaturityMonthYear</td>
-			<td class="text-center">Y</td>
-			<td>MonthYear</td>
-			<td>
-				<p>Month and year the instrument reaches maturity in the format <i>YYYYMM</i>.</p>
-				<p><strong>Note</strong>: If included, tag 541 (MaturityDate) will override this tag.</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag205">205</td>
-			<td>MaturityDay</td>
-			<td class="text-center">C</td>
-			<td>DayOfMonth</td>
-			<td>
-				<p>Day of expiration for the instrument.</p>
-				<p>TT FIX uses this value and Tag 200 (MaturityMonthYear) to specify the maturity date when Tag 167 (SecurityType) is not <strong>MLEG</strong>.</p>
-				<p>Range: 1-31</p>
-				<p><strong>Note</strong>: If included, tag 541 (MaturityDate) will override this tag.</p>
-				<p>Condition: Required when multiple contracts exist for the same month</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag201">201</td>
-			<td>PutOrCall</td>
-			<td class="text-center">C</td>
-			<td>int</td>
-			<td>
-				<p>Whether the option represents a put or call</p>
-				<p>Possible values include:</p>
-				<ul>
-					<li><strong>0</strong>: Put</li>
-					<li><strong>1</strong>: Call</li>
-				</ul>
-				<p>Condition: Required when Tag 167 (SecurityType) is <strong>OPT</strong></p>
-			</td>
-		</tr>
-		<tr>
-			<td class="text-right" id="tag202">202</td>
-			<td>StrikePrice</td>
-			<td class="text-center">C</td>
-			<td>Price</td>
-			<td>
-				<p>Strike price for an option</p>
-				<p>Condition: Required when Tag 167 (SecurityType) is <strong>OPT</strong></p>
-			</td>
-		</tr>
-
-	</tbody>
-</table>
+<h2 id="docker">Docker Operations</a>
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
   </div> <!-- /.row -->
 </div> <!-- /.container-fluid -->
@@ -1198,12 +851,12 @@
 	<div class="ttdoc-lower-nav row">
 		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
 			
-			<a href=".html">
+			<a href="ovw-introduction-8000.html">
 				<div class="lower-nav-arrow-left">
 				</div>
 				<div class="lower-nav-text">
 					<h1>Previous:</h1>
-	  				<h2></h2>
+	  				<h2>Setting up an Application Hosting Environment</h2>
 				</div>
 			</a>
 			
@@ -1211,6 +864,15 @@
 		<div class="col-sm-2 col-md-4 col-lg-4">
 		</div>
 		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
+			
+			<a href="ovw-accessing-tt-score-c.html">
+				<div class="lower-nav-arrow-right">
+				</div>
+				<div class="lower-nav-text">
+					<h1>Next:</h1>
+					<h2>Configuring MPLS</h2> 
+				</div>
+			</a>
 			
 		</div>  
 	</div>  <!-- /.ttdoc-lower-nav row-->
@@ -1263,7 +925,7 @@
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/imp-instrument-block.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/ovw-how-tt-score-works-8000.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            
