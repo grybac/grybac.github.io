@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Wash Trading | TT Score Help and Tutorials</title>
+      <title>Configuring MPLS | TT Score Help and Tutorials</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 	    	<li><a href="https://content.cisco.com/chapter.sjs?uri=/searchable/chapter/content/en/us/td/docs/iosxr/cisco8000/application-hosting/b-application-hosting-cg-cisco8000/m-preface-ah-cg.html.xml&platform=Cisco%208000%20Series%20Routers&release=All">8000 Series</a></li>
 			
 			 	
-			 		<li class="active">Wash Trading</li>
+			 		<li class="active">Configuring MPLS</li>
 			 	
 		
 </ul>
@@ -159,10 +159,10 @@
     <div class="ttdoc-article-wrapper" id="fullarticle"> 
        
       <div class="ttdoc-widget-title-mobile">
-        <span>Wash Trading</span>
+        <span>Configuring MPLS</span>
       </div>
 
-      <h1>Wash Trading</h1>
+      <h1>Configuring MPLS</h1>
 
           
       
@@ -172,58 +172,28 @@
 
  
 
-<p>A wash trade is a form of market manipulation in which a trader simultaneously buys and sells the same instrument using the same trader ID or account. Wash trades are typically used to generate artificial volume or to generate commissions for a broker.</p>
-
-<p>In TT Score, the Wash Trader Model analyzes and scores wash trading per user, while the Wash Account Model scores wash trading events per account.</p>
-
-<h2>Scoring methodology</h2>
-<p>When evaluating a potential wash trade based on Trader IDs, TT Score uses two checks. First, it determines if opposing orders for the same exchange-traded instrument were executed against each other at the same time and price. If so, TT Score then determines whether both trades were made with the same trader ID or same account.</p>
-
-<h3>Score interpretation</h3>
-<p>TT Score sets the cluster risk score to 100 if a true wash trade is detected; otherwise it sets the score to 0.</p>
+IP-Less MPLS-TP Ping and MPLS-TP Traceroute
+In Label Switched Path (LSP) ping or traceroute with IP encapsulation over ACH, IP encapsulated ping or traceroute packets are sent over the MPLS LSP using the control channel (ACH). The application-level control channel in this case is the reverse path of the LSP using ACH. The on-demand ping or traceroute echo response message is sent on the reverse path of the LSP. The response uses ACH and is IP encapsulated. The destination address in the IP header is set to that of the sender of the echo request message, and the source address in the IP header is set to a valid address of the replying node.
 
 
-<h2>Identifying wash trading</h2>
-<p>Use the <a href="cv-cluster-view-cluster-scorecard.html">Cluster Scorecard</a> to get a closer look at the activity that triggered the wash trading score. The Cluster Scorecard shows activity that could constitute a wash trade.</p>
-<p><img class="img-responsive" src="Content/wash-trade-example.png" alt=""/></p>
-<ol>
-    <li>
-    	Fills were executed on opposite sides of the market for the same order quantity.
-    </li>
-    <li>
-    	The two transactions were executed within the same millisecond.
-    </li>
-    <li>
-    	The two transactions were executed by the same trader ID.
-    </li>
-</ol>
+the reply mode is 4
 
-<!--
-<p>Scoring methodology - TT Score’s wash trade surveillance first checks to see if opposing orders of the same exchange-instrument executed against each other at the same time and price, and second checks to see if the trader(s) on either side are the same beneficial owner with the same trading ID or same account.</p>
+the node does not have a return MPLS LSP path to the echo request source.
 
-<p>Score interpretation - TT Score utilizes a Boolean test (true/false) in applying risk scores to instances of wash trading. If a true wash trade is detected then a risk score of 100 is assigned.</p>
--->
+<h2>MPLS LSP Ping</h2>
+<p>
+The MPLS LSP Ping feature is used to check the connectivity between Ingress LSR and egress LSRs along an LSP. MPLS LSP ping uses MPLS echo request and reply messages, similar to Internet Control Message Protocol (ICMP) echo request and reply messages, to validate an LSP. While ICMP echo request and reply messages validate IP networks, MPLS echo and reply messages validate MPLS networks. The MPLS echo request packet is sent to a target router through the use of the appropriate label stack associated with the LSP to be validated. Use of the label stack causes the packet to be forwarded over the LSP itself. The destination IP address of the MPLS echo request packet is different from the address used to select the label stack. The destination IP address is defined as a 127.x.y.z/8 address and it prevents the IP packet from being IP switched to its destination, if the LSP is broken.</p>
 
-<!--
-<p><span class="label label-danger">Alert</span> <span style="color:red;">Creating TT REST API application keys requires company administrators to enable the <b style="color:red;">Can create TT REST API key</b> setting for the user.</span></p>
--->
+<p>An MPLS echo reply is sent in response to an MPLS echo request. The reply is sent as an IP packet and it is forwarded using IP, MPLS, or a combination of both types of switching. The source address of the MPLS echo reply packet is an address obtained from the router generating the echo reply. The destination address is the source address of the router that originated the MPLS echo request packet. The MPLS echo reply destination port is set to the echo request source port.</p>
 
-<!--
-<h2 id="wash-trading-acct">Wash Trading (Account)</h2>
+<p>The following figure shows MPLS LSP ping echo request and echo reply paths.</p>
 
-<p>A wash trade is a form of market manipulation in which an investor simultaneously buys and sells the same financial instrument(s).</p>
+<p>Figure 1. MPLS LSP Ping Echo Request and Reply Paths</p>
+  <p><img class="img-responsive" src="Content/cisco-mpls.jpg"></p>
 
-<h3>Scoring methodology</h3>
-<p>TBD</p>
+<p>By default, the ping mpls ipv4 command tries to determine the Forwarding Equivalence Class (FEC) being used automatically. However, this is only applicable at head-end and works only if the FEC at the destination is same as the source. If the source and destination FEC types are not the same, the ping mpls ipv4 command may fail to identify the targeted FEC type. You can overcome this limitation by specifying the FEC type in MPLS LSP ping using the fec-type command option. If the user is not sure about the FEC type at the transit or the destination, or it may change through network, use of the generic FEC type command option is recommended. Generic FEC is not coupled to a particular control plane and allows path verification when the advertising protocol is unknown, or may change during the path of the echo request. If you are aware of the destination FEC type, specify the target FEC as BGP or LDP.</p>
 
-<h3>Score interpretation</h3>
-<p>TBD</p>
 
-<p>Scoring methodology - TT Score’s wash trade surveillance first checks to see if opposing orders of the same exchange-instrument executed against each other at the same time and price, and second checks to see if the trader(s) on either side are the same beneficial owner with the same trading ID or same account.</p>
-
-<p>Score interpretation - TT Score utilizes a Boolean test (true/false) in applying risk scores to instances of wash trading. If a true wash trade is detected then a risk score of 100 is assigned.</p>
-
--->
 	</div> <!--- /fullarticle ttdoc-article-wrapper-->
   </div> <!-- /.row -->
 </div> <!-- /.container-fluid -->
@@ -302,7 +272,7 @@
         <div class="footer__copyright-wrap">
           
           <div class="row">
-            <p>Language: English | <a href="../tt-score_ja/inv-wash-trading.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+            <p>Language: English | <a href="../tt-score_ja/ovw-accessing-tt-score-8201.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
           </div>
            
            
