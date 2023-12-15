@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Segment Routing Over IPv6 Overview | TT Score Help and Tutorials</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet"> <!-- need for tech indicators. also need mathjax script-->
+    <link rel="shortcut icon" href="Content/favicon.ico">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-29111405-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!--<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>-->
+
+ <script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
+ <!--<script src="js/bootstrap.min.js"></script> at bottom but might need for videos-->
+  </head>
+  <body class="pagination-centered">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<nav class="navbar navbar-default navbar-fixed-top ttdoc-navbar" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <ul class="nav nav-tabs" role="tablist">
+          
+        <!--  <li><a target="_blank" href="https://content.cisco.com/welcome.html/">Cisco Tech Help Library</a>
+          </li> -->
+        </ul>
+        <ul class="main-nav__secondary">
+          <li>
+              <form class="main-nav__search" action="Search.html">
+                <input class="main-nav__search-input" placeholder="Search" type="search" name="q" id="search" value="" autocomplete="off">
+                <input class="main-nav__search-button" type="submit" value="">
+              </form>
+          </li>
+        </ul>
+        <!-- Brand and toggle get grouped for better mobile display
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+        </div>
+        Brand and toggle get grouped for better mobile display -->
+      </div><!-- ./navbar-inner -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav> 
+
+<div class="container-fluid">
+<section>
+
+<div class="ttdoc-hero row ttdoc-article-hero">
+  <div class="vert-wrapper">
+    <h1 class="ttdoc-hero-headline">Security Configuration for Cisco Catalyst 9400 Switches</h1>
+    
+  </div>
+</div> 
+
+<div class="breadcrumb ttdoc-breadcrumb">
+<ul>
+	<!-- Library Home link -->
+    <li><a href="https://content.cisco.com/welcome.html">Catalyst Security</a></li><!--Library home - displays platforms-->
+    
+	    <!-- ADL Home link -->
+	    
+	    	<li><a href="https://content.cisco.com/chapter.sjs?uri=/searchable/chapter/content/en/us/td/docs/iosxr/cisco8000/application-hosting/b-application-hosting-cg-cisco8000/m-preface-ah-cg.html.xml&platform=Cisco%208000%20Series%20Routers&release=All">Configuration</a></li>
+			
+
+	    	<li><a href="https://content.cisco.com/chapter.sjs?uri=/searchable/chapter/content/en/us/td/docs/iosxr/cisco8000/application-hosting/b-application-hosting-cg-cisco8000/m-preface-ah-cg.html.xml&platform=Cisco%208000%20Series%20Routers&release=All">Configuring IPsec</a></li>
+			 	
+			 		<li class="active">Segment Routing Over IPv6 Overview</li>
+			 	
+		
+</ul>
+</div>
+ 
+
+<div class="ttdoc-nav-and-maincontent-container"> <!-- closed in lower-nav file -->
+  <ul class="navigation sidebar" id="myTab">
+    <div class="ttdoc-sidebar-logo">
+    </div>
+    <div class="ttdoc-sidebar-return-links-container ttdoc-breadcrumb">
+      <span>return to:</span>
+        <div class="ttdoc-sidebar-return-links">
+          <a href="../tthelp.html" id="ttdoc-help-library-link"> Help Library</a><span class="ttdoc-breadcrumb-hierarchy-separator"> > </span> 
+          <a href="index.html" id="ttdoc-platform-link">TT Score Help</a>
+        </div>
+    </div>
+
+  
+
+
+  
+  
+  
+  
+    <a href="#overview" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Configure Segment Routing over IPv6 (SRv6) with Micro-SIDs</a>
+    <div class="collapse nav-indiv-article" id="overview">
+  
+
+  
+    
+    
+      
+      
+
+          <a href="ovw-segment-routing-over-ipv6-overview.html" class="list-group-item list-group-subitem">Segment Routing over IPv6 Overview</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="ovw-ipsec-restrictions-on-catalyst-9400.html" class="list-group-item list-group-subitem">IPsec Restrictions on Catalyst 9400</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="ovw-how-ipsec-works.html" class="list-group-item list-group-subitem">How IPsec Works</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="ovw-ipsec-anti-replay-window.html" class="list-group-item list-group-subitem">IPsec Anti-Replay Window</a>
+                        
+      
+
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    </div> <!-- /.nav-indiv-article description -->
+
+  
+  
+  
+  
+    <a href="#using-tt-score" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Configure Segment Routing over IPv6 (SRv6) with Full-Length SIDs</a>
+    <div class="collapse nav-indiv-article" id="using-tt-score">
+  
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+      
+      
+
+          <a href="us-ikev2-overview.html" class="list-group-item list-group-subitem">IKEv2 Overview</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="us-ikev2-supported-standards.html" class="list-group-item list-group-subitem">IKEv2 Supported Standards</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="us-about-internet-key-exchange-version-2-cli-constructs.html" class="list-group-item list-group-subitem">Internet Key Exchange Version 2 CLI Constructs</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="us-ikev2-smart-defaults.html" class="list-group-item list-group-subitem">IKEv2 Smart Defaults</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="us-ikev2-suite-b-support.html" class="list-group-item list-group-subitem">IKEv2 Suite-B Support</a>
+                        
+      
+
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    </div> <!-- /.nav-indiv-article description -->
+
+  
+  
+  
+  
+    <a href="#views" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Configure Segment Routing Global Block and Segment Routing Local Block</a>
+    <div class="collapse nav-indiv-article" id="views">
+  
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+      
+      
+
+          <a href="glv-ipsec-virtual-tunnel-interfaces-overview.html" class="list-group-item list-group-subitem">IPsec Virtual Tunnel Interfaces Overview</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="glv-static-virtual-tunnel-interfaces.html" class="list-group-item list-group-subitem">Static Virtual Tunnel Interfaces</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="glv-routing-with-ipsec-virtual-tunnel-interfaces.html" class="list-group-item list-group-subitem">Routing with IPsec Virtual Tunnel Interfaces</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="glv-traffic-encryption-with-the-aIPsec-virtual-tunnel-interface.html" class="list-group-item list-group-subitem">Traffic Encryption with the IPsec Virtual Tunnel Interface</a>
+                        
+      
+
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    </div> <!-- /.nav-indiv-article description -->
+
+  
+  
+  
+  
+    <a href="#problematic-trading-models" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Configure Segment Routing for IS-IS Protocol</a>
+    <div class="collapse nav-indiv-article" id="problematic-trading-models">
+  
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+      
+      
+
+          <a href="inv-how-to-configure-ipsec.html" class="list-group-item list-group-subitem">How to Configure IPsec</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="inv-configuring-static-ipsec-virtual-tunnel-interfaces.html" class="list-group-item list-group-subitem">Configuring Static IPsec Virtual Tunnel Interfaces</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="inv-configuring-ipsec-on-the-distributed-gateway-example.html" class="list-group-item list-group-subitem">Configuring IPsec on the Distributed Gateway Example</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="inv-verifying-results-for-the-ipsec-static-virtual-tunnel-interface-example.html" class="list-group-item list-group-subitem">Verifying Results for the IPsec Static Virtual Tunnel Interface Example</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="inv-global-expanding-and-disabling-an-anti-replay-window-example.html" class="list-group-item list-group-subitem">Global Expanding and Disabling an Anti-Replay Window Example</a>
+                        
+      
+
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    </div> <!-- /.nav-indiv-article description -->
+
+  
+  
+  
+  
+    <a href="#reference" class="list-group-item list-group-item-success collapsed" data-toggle="collapse" data-parent="#ttdoc-maincontent-row"><div class="arrow-right"></div>Configure Segment Routing for OSPF Protocol</a>
+    <div class="collapse nav-indiv-article" id="reference">
+  
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-how-to-configure-internet-key-exchange-version-2.html" class="list-group-item list-group-subitem">How to Configure Internet Key Exchange Version 2</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-internet-key-exchange-version-2-configuration-examples.html" class="list-group-item list-group-subitem">Internet Key Exchange Version 2 Configuration Examples</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-configuring-basic-internet-key-exchange-version-2-cli-constructs.html" class="list-group-item list-group-subitem">Configuring Basic Internet Key Exchange Version 2 CLI Constructs</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-basic-internet-key-exchange-version-2-cli-constructs-configuration-examples.html" class="list-group-item list-group-subitem">Basic Internet Key Exchange Version 2 CLI Constructs Configuration Examples</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-configuring-ikev2-key-ring-example.html" class="list-group-item list-group-subitem">Configuring IKEv2 Key Ring Example</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-configuring-advanced-internet-key-exchange-version-2-cli-constructs.html" class="list-group-item list-group-subitem">Configuring Advanced Internet Key Exchange Version 2 CLI Constructs</a>
+                        
+      
+
+    
+  
+    
+    
+      
+      
+
+          <a href="imp-advanced-internet-key-exchange-version-2-cli-constructs-configuration-examples.html" class="list-group-item list-group-subitem">Advanced Internet Key Exchange Version 2 CLI Constructs Configuration Examples</a>
+                        
+      
+
+    
+  
+    </div> <!-- /.nav-indiv-article description -->
+
+   
+          </ul>
+
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger"></label>
+
+ 
+
+<div class="container-fluid ttdoc-maincontent-container site-wrap">
+  <div class="row ttdoc-maincontent-row">
+
+<!--Article Heading-->
+    <div class="ttdoc-article-wrapper" id="fullarticle"> 
+       
+      <div class="ttdoc-widget-title-mobile">
+        <span>Segment Routing Over IPv6 Overview</span>
+      </div>
+
+      <h1>Segment Routing Over IPv6 Overview</h1>
+
+          
+      
+
+
+
+
+ 
+
+  <article class="topic concept nested1" aria-labelledby="ariaid-title2" lang="en-US" id="id_94209">
+                     <h2 class="title topictitle2" id="ariaid-title2">Segment Routing over IPv6 Overview</h2>
+                     <section class="body conbody">
+                        
+                        <p class="p">Segment Routing (SR) can be applied on both MPLS and IPv6 data planes. Segment Routing over IPv6 (SRv6) extends Segment Routing
+                           support with IPv6 data plane. 
+                        </p>
+                        
+                        <p class="p">In an SR-MPLS enabled network, an MPLS label represents an instruction. The source nodes programs the path to a destination
+                           in the packet header as a stack of labels.
+                        </p>
+                        
+                        <p class="p">SRv6 introduces the Network Programming framework that enables a network operator or an application to specify a packet processing
+                           program by encoding a sequence of instructions in the IPv6 packet header. Each instruction is implemented on one or several
+                           nodes in the network and identified by an SRv6 Segment Identifier (SID) in the packet. The SRv6 Network Programming framework
+                           is defined in <a class="xref" href="https://datatracker.ietf.org/doc/draft-ietf-spring-srv6-network-programming/" target="_blank">IETF RFC 8986 SRv6 Network Programming</a>.
+                        </p>
+                        
+                        <p class="p">In SRv6, an IPv6 address represents an instruction. SRv6 uses a new type of IPv6 Routing Extension Header, called the Segment
+                           Routing Header (SRH), in order to encode an ordered list of instructions. The active segment is indicated by the destination
+                           address of the packet, and the next segment is indicated by a pointer in the SRH.
+                        </p>
+                        
+                        <figure class="fig fignone">
+                           <figcaption><span class="fig--title-label">Figure 1. </span>Network Program in the Packet Header
+                           </figcaption>
+                           
+                     
+
+                             	<p><img class="img-responsive" src="Content/sr-overview.png"/></p>
+
+                           
+                        </figure>
+                        
+                        <p class="p">The SRv6 SRH is documented in IETF RFC <a class="xref" href="https://datatracker.ietf.org/doc/rfc8754/" target="_blank">IPv6 Segment Routing Header (SRH)</a>.
+                        </p>
+                        
+                        <p class="p">The SRH is defined as follows:</p>
+                        <pre class="pre codeblock"><code>
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | Next Header   |  Hdr Ext Len  | Routing Type  | Segments Left |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Last Entry   |     Flags     |              Tag              |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |            Segment List[0] (128-bit IPv6 address)             |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                                                               |
+                                  ...
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |            Segment List[n] (128-bit IPv6 address)             |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    //                                                             //
+    //         Optional Type Length Value objects (variable)       //
+    //                                                             //
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+</code></pre><p class="p">The following list explains the fields in SRH:</p>
+                        <ul class="ul" id="id_94209__ul_umn_zqf_5y">
+                           <li class="li">
+                              
+                              <p class="p">Next header—Identifies the type of header immediately following the SRH.</p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p"> Hdr Ext Len (header extension length)—The length of the SRH in 8-octet units, not including the first 8 octets.</p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Segments left—Specifies the number of route segments remaining. That means, the number of explicitly listed intermediate nodes
+                                 still to be visited before reaching the final destination. 
+                              </p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Last Entry—Contains the index (zero based) of the last element of the segment list.</p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Flags— Contains 8 bits of flags.</p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Tag—Tag a packet as part of a class or group of packets like packets sharing the same set of properties.</p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Segment list—128-bit IPv6 addresses representing the <em class="ph i">n</em>th segment in the segment list. The segment list encoding starts from the last segment of the SR policy (path). That means
+                                 the first element of the segment list (Segment list [0]) contains the last segment of the SR policy, the second element contains
+                                 the penultimate segment of the SR policy and so on.
+                              </p>
+                              
+                           </li>
+                        </ul>
+                        <p class="p">In SRv6, a SID represents a 128-bit value, consisting of the following three parts:</p>
+                        <ul class="ul">
+                           <li class="li">
+                              
+                              <p class="p">Locator: This is the first part of the SID with most significant bits and represents an address of a specific SRv6 node.</p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Function: This is the portion of the SID that is local to the owner node and designates a specific SRv6 function (network
+                                 instruction) that is executed locally on a particular node, specified by the locator bits.
+                              </p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p"> Args: This field is optional and represents optional arguments to the function.</p>
+                              
+                           </li>
+                        </ul>
+                        <p class="p">The locator part can be further divided into two parts:</p>
+                        <ul class="ul">
+                           <li class="li">
+                              
+                              <p class="p">SID Block: This field is the SRv6 network designator and is a fixed or known address space for an SRv6 domain. This is the
+                                 most significant bit (MSB) portion of a locator subnet. 
+                              </p>
+                              
+                           </li>
+                           <li class="li">
+                              
+                              <p class="p">Node Id: This field is the node designator in an SRv6 network and is the least significant bit (LSB) portion of a locator
+                                 subnet. 
+                              </p>
+                              
+                           </li>
+                        </ul>
+                        
+                        <section class="section" id="id_94209__d21464e351">
+                           <h3 class="title sectiontitle">SRv6 Node Roles</h3>
+                           
+                           
+                           <p class="p">Each node along the SRv6 packet path has a different functionality:</p>
+                           
+                           <ul class="ul">
+                              
+                              <li class="li">
+                                 
+                                 <p class="p">Source node—A node that can generate an IPv6 packet with an SRH (an SRv6 packet), or an ingress node that can impose an SRH
+                                    on an IPv6 packet.
+                                 </p>
+                                 
+                              </li>
+                              
+                              <li class="li">
+                                 
+                                 <p class="p">Transit node—A node along the path of the SRv6 packet (IPv6 packet and SRH). The transit node does not inspect the SRH. The
+                                    destination address of the IPv6 packet does not correspond to the transit node.
+                                 </p>
+                                 
+                              </li>
+                              
+                              <li class="li">
+                                 
+                                 <p class="p">Endpoint node—A node in the SRv6 domain where the SRv6 segment is terminated. The destination address of the IPv6 packet with
+                                    an SRH corresponds to the end point node. The segment endpoint node executes the function bound to the SID
+                                 </p>
+                                 
+                              </li>
+                              
+                           </ul>
+                           
+                        </section>
+                        
+                        <section class="section" id="id_94209__d21464e381">
+                           <h3 class="title sectiontitle">SRv6 Head-End Behaviors</h3>
+                           
+                           
+                           <p class="p">The SR Headend with Encapsulation behaviors are documented in the <a class="xref" href="https://datatracker.ietf.org/doc/draft-ietf-spring-srv6-network-programming/" target="_blank">IETF RFC 8986 SRv6 Network Programming</a>.
+                           </p>
+                           
+                           <p class="p">The SR Headend with Insertion head-end behaviors are documented in the following IETF draft: </p>
+                           
+                           <p class="p"><a class="xref" href="https://datatracker.ietf.org/doc/draft-filsfils-spring-srv6-net-pgm-insertion/" target="_blank">https://datatracker.ietf.org/doc/draft-filsfils-spring-srv6-net-pgm-insertion/</a></p>
+                           
+                           
+                           
+                        </section>
+                        
+                        
+                        <section class="section" id="id_94209__section_xyx_pnx_dvb">
+                           <h3 class="title sectiontitle">SRv6 Endpoint Behavior Variants </h3>
+                           
+                           
+                           <p class="p">Depending on how the SRH is handled, different behavior variants are defined for the End and End.X behaviors. The End and
+                              End.X behaviors can support these variants, either individually or in combinations.
+                           </p>
+                           
+                           <ul class="ul" id="id_94209__ul_zyx_pnx_dvb">
+                              
+                              <li class="li">
+                                 
+                                 <p class="p"><strong class="ph b">Penultimate Segment Pop (PSP) of the SRH variant</strong>—An SR Segment Endpoint Nodes receive the IPv6 packet with the Destination Address field of the IPv6 Header equal to its SID
+                                    address.
+                                 </p>
+                                 
+                                 <p class="p">A penultimate SR Segment Endpoint Node is one that, as part of the SID processing, copies the last SID from the SRH into the
+                                    IPv6 Destination Address and decrements the Segments Left value from one to zero.
+                                 </p>
+                                 
+                                 <p class="p">The PSP operation takes place only at a penultimate SR Segment Endpoint Node and does not happen at non-penultimate endpoint
+                                    nodes. When a SID of PSP-flavor is processed at a non-penultimate SR Segment Endpoint Node, the PSP behavior is not performed
+                                    since Segments Left would not be zero.
+                                 </p>
+                                 
+                                 <p class="p">The SR Segment Endpoint Nodes advertise the SIDs instantiated on them via control plane protocols. A PSP-flavored SID is used
+                                    by the Source SR Node when it needs to instruct the penultimate SR Segment Endpoint Node listed in the SRH to remove the SRH
+                                    from the IPv6 header.
+                                 </p>
+                                 
+                              </li>
+                              
+                              <li class="li">
+                                 
+                                 <p class="p"><strong class="ph b">Ultimate Segment Pop (USP) of the SRH variant</strong>—The SRH processing of the End and End.X behaviors are modified as follows:
+                                 </p>
+                                 
+                                 <p class="p">If Segments Left is 0, then:</p>
+                                 
+                                 <ol class="ol" id="id_94209__ol_azx_pnx_dvb">
+                                    
+                                    <li class="li">
+                                       
+                                       <p class="p">Update the Next Header field in the preceding header to the Next Header value of the SRH</p>
+                                       
+                                    </li>
+                                    
+                                    <li class="li">
+                                       
+                                       <p class="p">Decrease the IPv6 header Payload Length by 8*(Hdr Ext Len+1)</p>
+                                       
+                                    </li>
+                                    
+                                    <li class="li">
+                                       
+                                       <p class="p">Remove the SRH from the IPv6 extension header chain</p>
+                                       
+                                    </li>
+                                    
+                                    <li class="li">
+                                       
+                                       <p class="p">Proceed to process the next header in the packet</p>
+                                       
+                                    </li>
+                                    
+                                 </ol>
+                                 
+                                 <p class="p">One of the applications of the USP flavor is when a packet with an SRH is destined to an application on hosts with smartNICs
+                                    implementing SRv6. The USP flavor is used to remove the consumed SRH from the extension header chain before sending the packet
+                                    to the host.
+                                 </p>
+                                 
+                              </li>
+                              
+                              <li class="li">
+                                 
+                                 <p class="p"><strong class="ph b">Ultimate Segment Decapsulation (USD) variant</strong>—The Upper-layer header processing of the End and End.X behaviors are modified as follows:
+                                 </p>
+                                 
+                                 <ul class="ul" id="id_94209__ul_bzx_pnx_dvb">
+                                    
+                                    <li class="li">
+                                       
+                                       <p class="p"><strong class="ph b">End</strong> behavior: If the Upper-layer Header type is 41 (IPv6), then:
+                                       </p>
+                                       
+                                       <ol class="ol" id="id_94209__ol_czx_pnx_dvb">
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Remove the outer IPv6 Header with all its extension headers</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Submit the packet to the egress IPv6 FIB lookup and transmission to the new destination</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Else, if the Upper-layer Header type is 4 (IPv4)</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Remove the outer IPv6 Header with all its extension headers</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Submit the packet to the egress IPv4 FIB lookup and transmission to the new destination</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Else, process as per Section 4.1.1 (Upper-Layer Header) of <a class="xref" href="https://datatracker.ietf.org/doc/draft-ietf-spring-srv6-network-programming/" target="_blank">IETF RFC 8986 SRv6 Network Programming</a></p>
+                                             
+                                          </li>
+                                          
+                                       </ol>
+                                       
+                                    </li>
+                                    
+                                 </ul>
+                                 
+                                 
+                                 <ul class="ul" id="id_94209__ul_fzx_pnx_dvb">
+                                    
+                                    <li class="li">
+                                       
+                                       <p class="p"><strong class="ph b">End.X</strong> behavior: If the Upper-layer Header type is 41 (IPv6) or 4 (IPv4), then:
+                                       </p>
+                                       
+                                       <ol class="ol" id="id_94209__ol_gzx_pnx_dvb">
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Remove the outer IPv6 Header with all its extension headers</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Forward the exposed IP packet to the L3 adjacency J</p>
+                                             
+                                          </li>
+                                          
+                                          <li class="li">
+                                             
+                                             <p class="p">Else, process as per Section 4.1.1 (Upper-Layer Header) of <a class="xref" href="https://datatracker.ietf.org/doc/draft-ietf-spring-srv6-network-programming/" target="_blank">IETF RFC 8986 SRv6 Network Programming</a></p>
+                                             
+                                          </li>
+                                          
+                                       </ol>
+                                       
+                                    </li>
+                                    
+                                 </ul>
+                                 
+                                 <p class="p">One of the applications of the USD flavor is the case of TI-LFA in P routers with encapsulation with H.Encaps. The USD flavor
+                                    allows the last Segment Endpoint Node in the repair path list to decapsulate the IPv6 header added at the TI-LFA Point of
+                                    Local Repair and forward the inner packet.
+                                 </p>
+                                 
+                              </li>
+                              
+                           </ul>
+                           
+                        </section>
+                     </section>
+                     <!-- minitoc start -->
+                     <nav role="navigation" class="related-links"></nav>
+                     <!-- minitoc end -->
+                  </article>
+                
+
+
+
+
+
+
+	</div> <!--- /fullarticle ttdoc-article-wrapper-->
+  </div> <!-- /.row -->
+</div> <!-- /.container-fluid -->
+
+
+
+</div> <!-- /ttdoc-nav-and-maincontent-container -->
+
+<div class="container-fluid ttdoc-lower-nav-container">
+
+	<div class="ttdoc-lower-nav row">
+		<div class="lower-nav-left col-sm-5 col-md-4 col-lg-4">
+			
+			<a href=".html">
+				<div class="lower-nav-arrow-left">
+				</div>
+				<div class="lower-nav-text">
+					<h1>Previous:</h1>
+	  				<h2></h2>
+				</div>
+			</a>
+			
+		</div>
+		<div class="col-sm-2 col-md-4 col-lg-4">
+		</div>
+		<div class="lower-nav-right col-sm-5 col-md-4 col-lg-4">
+			
+		</div>  
+	</div>  <!-- /.ttdoc-lower-nav row-->
+</div>  <!-- /.container-fluid -->
+
+</section>
+</div><!--/.container-fluid -->
+
+<footer class="footer ttdoc-footer" role="contentinfo">
+  <div class="footer-inner constrain">
+    <div class="row">
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../trade/index.html" class="footer-link">Trade</a> 
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../adl/index.html" class="footer-link">ADL<sup>&reg;</sup></a> 
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../user-setup/index.html" class="footer-link">Setup</a> 
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../risk/index.html" class="footer-link">Monitor</a> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../mobile-android/index.html" class="footer-link">Mobile Android</a> 
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../mobile-ios/index.html" class="footer-link">Mobile <span style="text-transform:lowercase;">i</span>OS</a> 
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../apis.html" class="footer-link">APIs</a> 
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="../release_notes/index.html" class="footer-link">Release Notes</a> 
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="https://www.tradingtechnologies.com/legal/" target="_blank">Legal</a>  
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <a href="https://www.tradingtechnologies.com/privacy/" target="_blank">Privacy</a>  
+      </div>
+    </div>
+
+    <div class="row"> 
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="footer__copyright-wrap">
+          
+          <div class="row">
+            <p>Language: English | <a href="../tt-score_ja/ovw-segment-routing-over-ipv6-overview.html" class="footer-link" style="color:#66c9d0;">日本語</a></p>
+          </div>
+           
+           
+          <p class="footer__copyright">Copyright © 2023 Trading Technologies International, Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div> <!-- /.footer-inner -->
+</footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="../js/hideSearchTabs.js"></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    
+    
+    
+    
+    <!-- <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../js/offcanvas.js"></script> -->
+</body>
+</html>
